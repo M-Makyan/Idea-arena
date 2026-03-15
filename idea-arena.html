@@ -8,270 +8,198 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#F7F8FC;
-  --white:#FFFFFF;
-  --surface:#F0F2FA;
-  --border:#DDE2F0;
-  --border-strong:#B8C2E0;
-  --blue:#1A4FD6;
-  --blue-light:#EEF2FF;
-  --blue-dark:#1239A8;
-  --orange:#F7720A;
-  --orange-light:#FFF3E8;
-  --orange-dark:#D45E00;
-  --text:#0D1330;
-  --text2:#4A5278;
-  --text3:#8B93B5;
-  --green:#12A86A;
-  --green-light:#E6F9F1;
-  --radius:14px;
-  --radius-sm:10px;
+  --bg:#F7F8FC;--white:#FFFFFF;--surface:#F0F2FA;
+  --border:#DDE2F0;--border-strong:#B8C2E0;
+  --blue:#1A4FD6;--blue-light:#EEF2FF;--blue-dark:#1239A8;
+  --orange:#F7720A;--orange-light:#FFF3E8;--orange-dark:#D45E00;
+  --text:#0D1330;--text2:#4A5278;--text3:#8B93B5;
+  --green:#12A86A;--green-light:#E6F9F1;
+  --radius:14px;--radius-sm:10px;
 }
-
-/* ── Global overflow lock ── */
-html,body{
-  height:100%;
-  background:var(--bg);
-  color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  overflow:hidden;
-  max-width:100vw;
-}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow:hidden;max-width:100vw;}
 *{word-break:break-word;overflow-wrap:break-word;}
+#root{height:100%;display:flex;flex-direction:column;width:100%;max-width:480px;margin:0 auto;position:relative;overflow:hidden;}
 
-#root{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  width:100%;
-  max-width:480px;
-  margin:0 auto;
-  position:relative;
-  overflow:hidden;
-}
-
-/* ── Screens ── */
-.screen{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;
-  padding:44px 22px 32px;
-  opacity:0;pointer-events:none;
-  transform:translateY(22px);
-  transition:opacity 0.38s cubic-bezier(.4,0,.2,1),transform 0.38s cubic-bezier(.4,0,.2,1);
-  overflow-x:hidden;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-}
+/* screens */
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;padding:44px 22px 32px;opacity:0;pointer-events:none;transform:translateY(22px);transition:opacity .38s cubic-bezier(.4,0,.2,1),transform .38s cubic-bezier(.4,0,.2,1);overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .screen.active{opacity:1;pointer-events:all;transform:translateY(0);}
 .screen::-webkit-scrollbar{width:0;}
 
-/* ── Logo ── */
+/* logo */
 .logo{display:flex;align-items:center;gap:9px;margin-bottom:36px;flex-shrink:0;}
 .logo-icon{width:32px;height:32px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--blue);}
 .logo-right{margin-left:auto;}
 
-/* ── Typography ── */
-.big-title{font-family:'Syne',sans-serif;font-weight:800;font-size:36px;line-height:1.08;margin-bottom:10px;letter-spacing:-0.02em;color:var(--text);}
+/* type */
+.big-title{font-family:'Syne',sans-serif;font-weight:800;font-size:36px;line-height:1.08;margin-bottom:10px;letter-spacing:-.02em;color:var(--text);}
 .big-title .accent{color:var(--orange);}
 .big-title .blue{color:var(--blue);}
 .sub{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:26px;}
-.label{font-size:11px;font-weight:500;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-bottom:8px;}
+.label{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;margin-bottom:8px;}
 
-/* ── Inputs ── */
-input,textarea{
-  width:100%;
-  background:var(--white);
-  border:1.5px solid var(--border);
-  border-radius:var(--radius-sm);
-  padding:14px 16px;
-  font-family:'DM Sans',sans-serif;
-  font-size:15px;color:var(--text);
-  outline:none;
-  transition:border-color 0.2s,box-shadow 0.2s;
-  -webkit-appearance:none;
-  max-width:100%;
-  white-space:pre-wrap;
-  word-break:break-word;
-}
-input:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,79,214,0.1);}
+/* inputs */
+input,textarea{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;max-width:100%;}
+input:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,79,214,.1);}
 textarea{resize:none;height:110px;line-height:1.65;}
 ::placeholder{color:var(--text3);}
 
-/* ── Buttons ── */
-.btn{
-  width:100%;padding:16px;border-radius:var(--radius);
-  font-family:'Syne',sans-serif;font-weight:700;font-size:15px;
-  letter-spacing:0.02em;border:none;cursor:pointer;
-  transition:transform 0.15s,opacity 0.15s,box-shadow 0.2s;
-  -webkit-tap-highlight-color:transparent;
-  flex-shrink:0;
-}
-.btn:active{transform:scale(0.97);}
-.btn-primary{background:var(--blue);color:#fff;box-shadow:0 4px 18px rgba(26,79,214,0.22);}
+/* buttons */
+.btn{width:100%;padding:16px;border-radius:var(--radius);font-family:'Syne',sans-serif;font-weight:700;font-size:15px;letter-spacing:.02em;border:none;cursor:pointer;transition:transform .15s,opacity .15s,box-shadow .2s;-webkit-tap-highlight-color:transparent;flex-shrink:0;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 4px 18px rgba(26,79,214,.22);}
 .btn-primary:hover{background:var(--blue-dark);}
-.btn-orange{background:var(--orange);color:#fff;box-shadow:0 4px 18px rgba(247,114,10,0.22);}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 4px 18px rgba(247,114,10,.22);}
 .btn-orange:hover{background:var(--orange-dark);}
 .btn-ghost{background:transparent;border:1.5px solid var(--border-strong);color:var(--text2);font-family:'DM Sans',sans-serif;font-weight:400;font-size:14px;padding:13px;}
 .btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
-.btn:disabled{opacity:0.35;cursor:not-allowed;transform:none;box-shadow:none;}
-.btn-icon{width:auto;padding:7px 10px;border-radius:8px;font-size:13px;display:inline-flex;align-items:center;gap:5px;line-height:1;}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-icon{width:auto;padding:7px 12px;border-radius:8px;font-size:13px;display:inline-flex;align-items:center;gap:5px;line-height:1;}
 
-/* ── Cards ── */
-.card{
-  background:var(--white);
-  border:1.5px solid var(--border);
-  border-radius:var(--radius);
-  padding:16px 18px;
-  margin-bottom:11px;
-  transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s;
-  overflow:hidden;
-  min-width:0;
-}
+/* cards */
+.card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:11px;transition:border-color .2s,box-shadow .2s,transform .15s;overflow:hidden;min-width:0;}
 .card.tap{cursor:pointer;-webkit-tap-highlight-color:transparent;}
-.card.tap:hover{border-color:var(--blue);box-shadow:0 2px 12px rgba(26,79,214,0.08);}
-.card.tap:active{transform:scale(0.985);}
-.card.selected{border-color:var(--blue);background:var(--blue-light);box-shadow:0 2px 14px rgba(26,79,214,0.12);}
+.card.tap:hover{border-color:var(--blue);box-shadow:0 2px 12px rgba(26,79,214,.08);}
+.card.tap:active{transform:scale(.985);}
+.card.selected{border-color:var(--blue);background:var(--blue-light);box-shadow:0 2px 14px rgba(26,79,214,.12);}
 .card.success{border-color:var(--green);background:var(--green-light);}
 
-/* ── Avatar ── */
+/* avatar */
 .avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;flex-shrink:0;}
 
-/* ── Player row ── */
+/* player row */
 .player-row{display:flex;align-items:center;gap:12px;min-width:0;}
 .player-name{flex:1;font-size:15px;font-weight:500;color:var(--text);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
-/* ── Badges ── */
-.badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;letter-spacing:0.02em;white-space:nowrap;flex-shrink:0;}
+/* badges */
+.badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;letter-spacing:.02em;white-space:nowrap;flex-shrink:0;}
 .b-done{background:var(--green-light);color:var(--green);}
 .b-wait{background:var(--surface);color:var(--text3);}
 .b-host{background:var(--blue-light);color:var(--blue);}
 .b-you{background:var(--orange-light);color:var(--orange);}
+.b-online{background:#E8FEF0;color:#0A7A40;}
 
-/* ── Phase pill ── */
-.phase-pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;padding:5px 13px;border-radius:999px;margin-bottom:20px;letter-spacing:0.04em;flex-shrink:0;}
+/* phase pill */
+.phase-pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;padding:5px 13px;border-radius:999px;margin-bottom:20px;letter-spacing:.04em;flex-shrink:0;}
 .phase-pill .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.pill-orange{background:var(--orange-light);color:var(--orange);border:1px solid rgba(247,114,10,0.2);}
+.pill-orange{background:var(--orange-light);color:var(--orange);border:1px solid rgba(247,114,10,.2);}
 .pill-orange .dot{background:var(--orange);}
-.pill-blue{background:var(--blue-light);color:var(--blue);border:1px solid rgba(26,79,214,0.15);}
+.pill-blue{background:var(--blue-light);color:var(--blue);border:1px solid rgba(26,79,214,.15);}
 .pill-blue .dot{background:var(--blue);animation:blink 1.5s infinite;}
-.pill-green{background:var(--green-light);color:var(--green);border:1px solid rgba(18,168,106,0.2);}
+.pill-green{background:var(--green-light);color:var(--green);border:1px solid rgba(18,168,106,.2);}
 .pill-green .dot{background:var(--green);}
 
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
 
-/* ── Sync bar ── */
+/* sync */
 .sync-bar{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text3);margin-bottom:20px;flex-shrink:0;}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite;flex-shrink:0;}
 
-/* ── Vote bars ── */
+/* vote bars */
 .vote-bar-bg{height:4px;background:var(--surface);border-radius:2px;margin-top:10px;}
-.vote-bar-fill{height:4px;background:var(--blue);border-radius:2px;transition:width 0.5s cubic-bezier(.4,0,.2,1);}
+.vote-bar-fill{height:4px;background:var(--blue);border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1);}
 .vote-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text3);margin-top:5px;}
 
-/* ── Winner banner ── */
-.winner-banner{
-  border:2px solid var(--orange);border-radius:18px;
-  padding:26px 22px;text-align:center;margin-bottom:20px;
-  background:var(--white);position:relative;overflow:hidden;
-  box-shadow:0 8px 32px rgba(247,114,10,0.12);
-}
-.winner-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -10%,rgba(247,114,10,0.1),transparent 65%);}
+/* winner */
+.winner-banner{border:2px solid var(--orange);border-radius:18px;padding:26px 22px;text-align:center;margin-bottom:20px;background:var(--white);position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(247,114,10,.12);}
+.winner-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -10%,rgba(247,114,10,.1),transparent 65%);}
 .winner-crown{font-size:38px;margin-bottom:10px;position:relative;}
 .winner-name{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:var(--orange);margin-bottom:6px;position:relative;}
 .winner-area-tag{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;margin-bottom:10px;background:var(--blue-light);color:var(--blue);position:relative;}
-.winner-section-label{font-size:11px;font-weight:500;letter-spacing:0.08em;color:var(--text3);text-transform:uppercase;margin-bottom:4px;text-align:left;position:relative;}
-.winner-text{font-size:14px;color:var(--text);line-height:1.65;text-align:left;position:relative;word-break:break-word;overflow-wrap:break-word;}
+.winner-section-label{font-size:11px;font-weight:500;letter-spacing:.08em;color:var(--text3);text-transform:uppercase;margin-bottom:4px;text-align:left;position:relative;}
 .winner-votes{font-size:13px;color:var(--text3);margin-top:10px;position:relative;}
 
-/* ── Copy row ── */
+/* copy row */
 .copy-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;position:relative;}
 .copy-row .copy-text{flex:1;min-width:0;font-size:14px;color:var(--text);line-height:1.65;word-break:break-word;overflow-wrap:break-word;}
-.copy-btn{
-  flex-shrink:0;
-  width:30px;height:30px;
-  border-radius:8px;
-  border:1.5px solid var(--border);
-  background:var(--white);
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:border-color 0.15s,background 0.15s;
-  -webkit-tap-highlight-color:transparent;
-}
+.copy-btn{flex-shrink:0;width:30px;height:30px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s;-webkit-tap-highlight-color:transparent;}
 .copy-btn:hover{border-color:var(--blue);background:var(--blue-light);}
-.copy-btn svg{width:14px;height:14px;stroke:var(--text3);transition:stroke 0.15s;}
+.copy-btn svg{width:14px;height:14px;stroke:var(--text3);transition:stroke .15s;}
 .copy-btn:hover svg{stroke:var(--blue);}
 .copy-btn.copied{border-color:var(--green);background:var(--green-light);}
 .copy-btn.copied svg{stroke:var(--green);}
 
-/* ── Rank ── */
+/* rank */
 .rank{width:26px;height:26px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text3);flex-shrink:0;}
 .rank.first{background:var(--orange-light);border-color:var(--orange);color:var(--orange);}
 
-/* ── Divider / utils ── */
+/* utils */
 .divider{border:none;border-top:1px solid var(--border);margin:20px 0;flex-shrink:0;}
 .error-msg{font-size:13px;color:#D63A1A;margin-top:8px;display:none;line-height:1.5;}
-.section-title{font-size:11px;font-weight:500;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-bottom:12px;}
+.section-title{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;margin-bottom:12px;}
 .gap{margin-bottom:14px;}
 
-/* ── Step indicator ── */
+/* step indicator */
 .step-indicator{display:flex;align-items:center;gap:7px;margin-bottom:24px;flex-shrink:0;}
-.step-pip{height:5px;flex:1;border-radius:3px;background:var(--border);transition:background 0.3s;}
+.step-pip{height:5px;flex:1;border-radius:3px;background:var(--border);transition:background .3s;}
 .step-pip.active{background:var(--blue);}
 .step-pip.done{background:var(--orange);}
 
-/* ── Area grid ── */
+/* area grid */
 .area-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
-.area-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px;cursor:pointer;transition:all 0.18s;-webkit-tap-highlight-color:transparent;text-align:left;}
-.area-card:hover{border-color:var(--orange);box-shadow:0 2px 10px rgba(247,114,10,0.1);}
-.area-card:active{transform:scale(0.97);}
+.area-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px;cursor:pointer;transition:all .18s;-webkit-tap-highlight-color:transparent;text-align:left;}
+.area-card:hover{border-color:var(--orange);box-shadow:0 2px 10px rgba(247,114,10,.1);}
+.area-card:active{transform:scale(.97);}
 .area-card.chosen{border-color:var(--orange);background:var(--orange-light);}
 .area-card .area-icon{font-size:22px;margin-bottom:6px;}
 .area-card .area-name{font-size:13px;font-weight:500;color:var(--text);}
 .area-card.chosen .area-name{color:var(--orange-dark);}
 
-/* ── Idea chip ── */
-.idea-chip{background:var(--blue-light);border:1px solid rgba(26,79,214,0.15);border-radius:9px;padding:10px 14px;margin-bottom:14px;min-width:0;overflow:hidden;}
-.idea-chip-label{font-size:10px;font-weight:500;letter-spacing:0.1em;color:var(--blue);text-transform:uppercase;margin-bottom:4px;}
+/* idea chip */
+.idea-chip{background:var(--blue-light);border:1px solid rgba(26,79,214,.15);border-radius:9px;padding:10px 14px;margin-bottom:14px;min-width:0;overflow:hidden;}
+.idea-chip-label{font-size:10px;font-weight:500;letter-spacing:.1em;color:var(--blue);text-transform:uppercase;margin-bottom:4px;}
 .idea-chip-val{font-size:14px;color:var(--text);line-height:1.5;word-break:break-word;}
 
-/* ── Back link ── */
-.back-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--text3);cursor:pointer;margin-bottom:20px;background:none;border:none;font-family:'DM Sans',sans-serif;transition:color 0.15s;padding:0;flex-shrink:0;}
+/* back link */
+.back-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--text3);cursor:pointer;margin-bottom:20px;background:none;border:none;font-family:'DM Sans',sans-serif;transition:color .15s;padding:0;flex-shrink:0;}
 .back-link:hover{color:var(--blue);}
 
-/* ── Join hero ── */
-.join-hero{width:72px;height:72px;background:var(--blue);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:24px;box-shadow:0 8px 24px rgba(26,79,214,0.25);flex-shrink:0;}
+/* join hero */
+.join-hero{width:72px;height:72px;background:var(--blue);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:24px;box-shadow:0 8px 24px rgba(26,79,214,.25);flex-shrink:0;}
 
-/* ── History panel (slide-over) ── */
-#history-panel{
-  position:fixed;inset:0;z-index:500;
-  display:flex;flex-direction:column;
-  max-width:480px;margin:0 auto;
-  background:var(--bg);
-  transform:translateX(100%);
-  transition:transform 0.35s cubic-bezier(.4,0,.2,1);
-  overflow:hidden;
-}
+/* member picker */
+.member-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.member-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 14px;cursor:pointer;transition:all .18s;-webkit-tap-highlight-color:transparent;text-align:center;position:relative;}
+.member-card:hover{border-color:var(--blue);box-shadow:0 2px 12px rgba(26,79,214,.1);}
+.member-card:active{transform:scale(.97);}
+.member-card.chosen{border-color:var(--blue);background:var(--blue-light);box-shadow:0 2px 14px rgba(26,79,214,.15);}
+.member-card.taken{opacity:.4;cursor:not-allowed;pointer-events:none;}
+.member-card .m-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:16px;margin:0 auto 10px;}
+.member-card .m-name{font-size:14px;font-weight:600;color:var(--text);}
+.member-card.chosen .m-name{color:var(--blue-dark);}
+.member-card .m-taken-label{font-size:11px;color:var(--text3);margin-top:3px;}
+.member-card .online-dot{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--green);border:2px solid var(--white);}
+
+/* history panel */
+#history-panel{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;max-width:480px;margin:0 auto;background:var(--bg);transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);overflow:hidden;}
 #history-panel.open{transform:translateX(0);}
 #history-panel-inner{flex:1;overflow-y:auto;overflow-x:hidden;padding:44px 22px 32px;-webkit-overflow-scrolling:touch;}
 #history-panel-inner::-webkit-scrollbar{width:0;}
 
-/* ── Toast ── */
-#toast{
-  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);
-  background:var(--text);color:#fff;
-  font-size:13px;padding:9px 18px;border-radius:999px;
-  opacity:0;transition:opacity 0.2s,transform 0.2s;
-  pointer-events:none;white-space:nowrap;z-index:600;
-}
+/* setup overlay */
+#setup-overlay{position:fixed;inset:0;z-index:600;background:rgba(13,19,48,.6);display:flex;align-items:center;justify-content:center;padding:22px;}
+#setup-overlay.hidden{display:none;}
+.setup-box{background:var(--white);border-radius:20px;padding:28px 24px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(13,19,48,.25);}
+.setup-box h2{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--text);margin-bottom:6px;}
+.setup-box p{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:20px;}
+.setup-input-row{display:flex;gap:10px;margin-bottom:12px;}
+.setup-input-row input{flex:1;}
+.setup-steps{list-style:none;margin-bottom:20px;}
+.setup-steps li{font-size:13px;color:var(--text2);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.setup-steps li:last-child{border-bottom:none;}
+.setup-steps .step-num{width:20px;height:20px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+code{background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:1px 6px;font-size:12px;color:var(--blue);font-family:monospace;}
+
+/* toast */
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;font-size:13px;padding:9px 18px;border-radius:999px;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;white-space:nowrap;z-index:700;}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* ── Confetti ── */
+/* confetti */
 #confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:400;}
 
-/* ── Idea content text blocks (shared) ── */
+/* idea fields */
 .idea-field{min-width:0;overflow:hidden;}
-.idea-field-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;}
+.idea-field-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;}
 .idea-field-val{font-size:14px;color:var(--text);line-height:1.65;word-break:break-word;overflow-wrap:break-word;}
 .idea-field-val.muted{color:var(--text2);font-size:13px;}
 </style>
@@ -279,6 +207,25 @@ textarea{resize:none;height:110px;line-height:1.65;}
 <body>
 <canvas id="confetti-canvas"></canvas>
 <div id="toast"></div>
+
+<!-- ── Firebase setup overlay ── -->
+<div id="setup-overlay">
+  <div class="setup-box">
+    <h2>🔥 Connect Firebase</h2>
+    <p>Idea Arena needs a free Firebase Realtime Database to sync across all your devices. It takes 3 minutes to set up once.</p>
+    <ol class="setup-steps">
+      <li><span class="step-num">1</span><span>Go to <strong>console.firebase.google.com</strong> → create a project (disable Analytics)</span></li>
+      <li><span class="step-num">2</span><span>Click <strong>Realtime Database</strong> → Create database → choose any region → start in <strong>test mode</strong></span></li>
+      <li><span class="step-num">3</span><span>Click the ⚙️ gear → <strong>Project settings</strong> → scroll to "Your apps" → click <strong>&lt;/&gt;</strong> → copy the <code>databaseURL</code></span></li>
+    </ol>
+    <div class="label">Paste your Firebase Database URL</div>
+    <div class="setup-input-row">
+      <input type="text" id="fb-url-input" placeholder="https://your-project-default-rtdb.firebaseio.com"/>
+    </div>
+    <div class="error-msg" id="fb-err" style="display:none;margin-bottom:12px;">Please enter a valid Firebase URL (starts with https:// and ends with .firebaseio.com)</div>
+    <button class="btn btn-primary" onclick="saveFirebaseUrl()">Connect & Play →</button>
+  </div>
+</div>
 
 <!-- ── History panel ── -->
 <div id="history-panel">
@@ -288,42 +235,36 @@ textarea{resize:none;height:110px;line-height:1.65;}
       <div class="logo-text">History</div>
       <button class="back-link logo-right" style="margin-bottom:0;" onclick="closeHistory()">✕ Close</button>
     </div>
-    <div id="history-empty" style="display:none;">
-      <div class="sub">No past rounds yet. Finish your first game to see history here.</div>
-    </div>
+    <div id="history-empty" style="display:none;"><div class="sub">No past rounds yet.</div></div>
     <div id="history-list"></div>
   </div>
 </div>
 
 <div id="root">
 
-  <!-- ── JOIN ── -->
+  <!-- JOIN -->
   <div class="screen active" id="s-join">
     <div class="logo">
-      <div class="logo-icon">💡</div>
-      <div class="logo-text">Idea Arena</div>
-      <button class="btn-icon btn-ghost logo-right" style="font-family:'DM Sans',sans-serif;font-size:13px;" onclick="openHistory()">📖 History</button>
+      <div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div>
+      <button class="btn-icon btn-ghost logo-right" onclick="openHistory()">📖 History</button>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
       <div class="join-hero">🚀</div>
       <div class="big-title">Your daily<br><span class="accent">idea</span><br>battle.</div>
-      <div class="sub">Submit your boldest startup idea every morning. Vote as a team. May the best idea win.</div>
-      <div class="label">Your name</div>
-      <input type="text" id="join-name" placeholder="e.g. Alex" maxlength="20" autocomplete="off"/>
-      <div class="error-msg" id="join-err">Please enter your name to continue.</div>
-      <div class="gap"></div>
+      <div class="sub">Pick your name to join today's round.</div>
+      <div class="label">Who are you?</div>
+      <div class="member-grid" id="join-member-grid"></div>
+      <div class="error-msg" id="join-err">Pick your name to continue.</div>
       <button class="btn btn-primary" onclick="joinGame()">Enter the arena →</button>
     </div>
   </div>
 
-  <!-- ── STEP 1: AREA ── -->
+  <!-- STEP 1: AREA -->
   <div class="screen" id="s-step1">
     <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
     <div class="sync-bar"><span class="sync-dot"></span><span id="sync-s1">Live</span></div>
     <div class="phase-pill pill-orange"><span class="dot"></span>Morning drop</div>
-    <div class="step-indicator">
-      <div class="step-pip active"></div><div class="step-pip"></div><div class="step-pip"></div>
-    </div>
+    <div class="step-indicator"><div class="step-pip active"></div><div class="step-pip"></div><div class="step-pip"></div></div>
     <div class="big-title" style="font-size:26px;margin-bottom:6px;">What's the<br><span class="accent">area?</span></div>
     <div class="sub" style="margin-bottom:16px;">Choose the business domain for your idea.</div>
     <div class="area-grid" id="area-grid"></div>
@@ -332,14 +273,12 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <button class="btn btn-orange" onclick="goStep2()">Next →</button>
   </div>
 
-  <!-- ── STEP 2: PROBLEM ── -->
+  <!-- STEP 2: PROBLEM -->
   <div class="screen" id="s-step2">
     <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
     <div class="sync-bar"><span class="sync-dot"></span><span id="sync-s2">Live</span></div>
     <div class="phase-pill pill-orange"><span class="dot"></span>Morning drop</div>
-    <div class="step-indicator">
-      <div class="step-pip done"></div><div class="step-pip active"></div><div class="step-pip"></div>
-    </div>
+    <div class="step-indicator"><div class="step-pip done"></div><div class="step-pip active"></div><div class="step-pip"></div></div>
     <button class="back-link" onclick="goBackStep1()">← Back</button>
     <div id="s2-chip"></div>
     <div class="big-title" style="font-size:26px;margin-bottom:6px;">What's the<br><span class="blue">problem?</span></div>
@@ -351,14 +290,12 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <button class="btn btn-orange" onclick="goStep3()">Next →</button>
   </div>
 
-  <!-- ── STEP 3: SOLUTION ── -->
+  <!-- STEP 3: SOLUTION -->
   <div class="screen" id="s-step3">
     <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
     <div class="sync-bar"><span class="sync-dot"></span><span id="sync-s3">Live</span></div>
     <div class="phase-pill pill-orange"><span class="dot"></span>Morning drop</div>
-    <div class="step-indicator">
-      <div class="step-pip done"></div><div class="step-pip done"></div><div class="step-pip active"></div>
-    </div>
+    <div class="step-indicator"><div class="step-pip done"></div><div class="step-pip done"></div><div class="step-pip active"></div></div>
     <button class="back-link" onclick="goBackStep2()">← Back</button>
     <div id="s3-chip"></div>
     <div class="big-title" style="font-size:26px;margin-bottom:6px;">Your<br><span class="blue">solution.</span></div>
@@ -370,7 +307,7 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <button class="btn btn-primary" onclick="submitIdea()">Lock it in ✓</button>
   </div>
 
-  <!-- ── WAITING ── -->
+  <!-- WAITING -->
   <div class="screen" id="s-waiting">
     <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
     <div class="sync-bar"><span class="sync-dot"></span><span id="sync-w">Live</span></div>
@@ -378,14 +315,8 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <div class="card success" style="margin-bottom:18px;">
       <div class="label" style="color:var(--green);margin-bottom:8px;">Your idea is locked in ✓</div>
       <div id="wait-area-tag" style="margin-bottom:10px;"></div>
-      <div class="idea-field" style="margin-bottom:10px;">
-        <div class="idea-field-label">Problem</div>
-        <div class="idea-field-val" id="wait-problem"></div>
-      </div>
-      <div class="idea-field">
-        <div class="idea-field-label">Solution</div>
-        <div class="idea-field-val" id="wait-solution"></div>
-      </div>
+      <div class="idea-field" style="margin-bottom:10px;"><div class="idea-field-label">Problem</div><div class="idea-field-val" id="wait-problem"></div></div>
+      <div class="idea-field"><div class="idea-field-label">Solution</div><div class="idea-field-val" id="wait-solution"></div></div>
     </div>
     <div class="sub">Waiting for everyone to submit their idea…</div>
     <div class="section-title">Team status</div>
@@ -400,7 +331,7 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <div style="height:24px;"></div>
   </div>
 
-  <!-- ── VOTE ── -->
+  <!-- VOTE -->
   <div class="screen" id="s-vote">
     <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
     <div class="sync-bar"><span class="sync-dot"></span><span id="sync-v">Live</span></div>
@@ -419,12 +350,11 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <div style="height:24px;"></div>
   </div>
 
-  <!-- ── RESULTS ── -->
+  <!-- RESULTS -->
   <div class="screen" id="s-results">
     <div class="logo">
-      <div class="logo-icon">💡</div>
-      <div class="logo-text">Idea Arena</div>
-      <button class="btn-icon btn-ghost logo-right" style="font-family:'DM Sans',sans-serif;font-size:13px;" onclick="openHistory()">📖 History</button>
+      <div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div>
+      <button class="btn-icon btn-ghost logo-right" onclick="openHistory()">📖 History</button>
     </div>
     <div class="phase-pill pill-green"><span class="dot"></span>Results</div>
     <div class="big-title" style="font-size:28px;margin-bottom:18px;">And the<br><span class="accent">winner</span> is…</div>
@@ -441,11 +371,16 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <div style="height:24px;"></div>
   </div>
 
-</div><!-- #root -->
+</div>
 
 <script>
-const GAME_KEY='idea-arena-v4';
-const HISTORY_KEY='idea-arena-history-v1';
+// ── Config ──
+const TEAM = [
+  {name:'Mark',     icon:'M', bg:'#DBEAFE', color:'#1E40AF'},
+  {name:'Khachatur',icon:'K', bg:'#FEF3C7', color:'#92400E'},
+  {name:'Arpi',     icon:'A', bg:'#FCE7F3', color:'#9D174D'},
+  {name:'Narek',    icon:'N', bg:'#D1FAE5', color:'#065F46'},
+];
 const AREAS=[
   {icon:'💻',name:'Tech'},{icon:'☁️',name:'SaaS'},
   {icon:'🛒',name:'E-commerce'},{icon:'🏥',name:'Health'},
@@ -454,84 +389,343 @@ const AREAS=[
   {icon:'🚚',name:'Logistics'},{icon:'🎮',name:'Gaming'},
   {icon:'🏠',name:'PropTech'},{icon:'🍔',name:'FoodTech'},
 ];
-const AVATARS=[
-  {bg:'#DBEAFE',color:'#1E40AF'},{bg:'#FEF3C7',color:'#92400E'},
-  {bg:'#D1FAE5',color:'#065F46'},{bg:'#EDE9FE',color:'#5B21B6'},
-  {bg:'#FFE4E6',color:'#9F1239'},{bg:'#CFFAFE',color:'#164E63'},
-  {bg:'#FEE2E2',color:'#991B1B'},{bg:'#F3F4F6',color:'#1F2937'},
-];
+const HISTORY_KEY='idea-arena-history-v1';
+const FB_URL_KEY='idea-arena-fb-url';
 
-let myName=null,pollTimer=null,lastPhase=null;
-let draftArea=null,draftProblem=null,draftSolution=null;
+let myName=null, fbUrl=null, unsubscribe=null;
+let draftArea=null, draftProblem=null, draftSolution=null;
+let lastPhase=null, lastStateJson=null, selectedMember=null;
 
 // ── Helpers ──
-function initials(n){return n.trim().split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
-function colorFor(n){let h=0;for(let c of n)h=(h*31+c.charCodeAt(0))%AVATARS.length;return AVATARS[h];}
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function nowTime(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
 function nowDate(){return new Date().toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'});}
+function memberFor(name){return TEAM.find(m=>m.name===name)||{name,icon:name[0].toUpperCase(),bg:'#F3F4F6',color:'#1F2937'};}
+
+// ── Firebase URL setup ──
+function saveFirebaseUrl(){
+  const val=document.getElementById('fb-url-input').value.trim().replace(/\/+$/,'');
+  const err=document.getElementById('fb-err');
+  if(!val.startsWith('https://')||!val.includes('firebaseio.com')){err.style.display='block';return;}
+  err.style.display='none';
+  fbUrl=val;
+  localStorage.setItem(FB_URL_KEY,fbUrl);
+  document.getElementById('setup-overlay').classList.add('hidden');
+  initJoinScreen();
+}
+
+// ── Firebase REST helpers ──
+async function fbGet(path){
+  const r=await fetch(fbUrl+path+'.json');
+  if(!r.ok)return null;
+  return r.json();
+}
+async function fbSet(path,data){
+  await fetch(fbUrl+path+'.json',{method:'PUT',body:JSON.stringify(data),headers:{'Content-Type':'application/json'}});
+}
+async function fbPatch(path,data){
+  await fetch(fbUrl+path+'.json',{method:'PATCH',body:JSON.stringify(data),headers:{'Content-Type':'application/json'}});
+}
+async function fbDelete(path){
+  await fetch(fbUrl+path+'.json',{method:'DELETE'});
+}
+
+// ── Long-poll sync ──
+let pollTimer=null;
+function startPoll(){
+  if(pollTimer)clearInterval(pollTimer);
+  pollTimer=setInterval(async()=>{
+    const state=await fbGet('/game');
+    if(!state)return;
+    const j=JSON.stringify(state);
+    if(j!==lastStateJson){lastStateJson=j;render(state);}
+    updateSyncs();
+  },2500);
+}
+
 function updateSyncs(){
   const t='Live · '+nowTime();
   ['sync-s1','sync-s2','sync-s3','sync-w','sync-v'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=t;});
 }
 
-// ── Storage ──
-function loadState(){try{const v=localStorage.getItem(GAME_KEY);return v?JSON.parse(v):null;}catch{return null;}}
-function saveState(s){try{localStorage.setItem(GAME_KEY,JSON.stringify(s));}catch{}}
-function blankState(){return{phase:'submit',players:{},votes:{},host:null};}
+// ── Join screen ──
+function initJoinScreen(){
+  buildAreaGrid();
+  buildJoinGrid(null);
+  show('s-join');
+  // poll so online indicators update
+  setInterval(async()=>{
+    if(document.getElementById('s-join').classList.contains('active')){
+      const state=await fbGet('/game');
+      if(state)buildJoinGrid(state);
+    }
+  },3000);
+}
 
-function loadHistory(){try{const v=localStorage.getItem(HISTORY_KEY);return v?JSON.parse(v):[];}catch{return[];}}
-function saveHistory(h){try{localStorage.setItem(HISTORY_KEY,JSON.stringify(h));}catch{}}
+function buildJoinGrid(state){
+  const online=state?Object.keys(state.players||{}):[]; 
+  document.getElementById('join-member-grid').innerHTML=TEAM.map(m=>{
+    const isTaken=online.includes(m.name)&&m.name!==myName;
+    const isChosen=selectedMember===m.name;
+    return `<div class="member-card${isChosen?' chosen':''}${isTaken?' taken':''}" onclick="pickMember('${m.name}')">
+      ${online.includes(m.name)?'<div class="online-dot"></div>':''}
+      <div class="m-avatar" style="background:${m.bg};color:${m.color};">${m.icon}</div>
+      <div class="m-name">${m.name}</div>
+      ${isTaken?'<div class="m-taken-label">already in</div>':''}
+    </div>`;
+  }).join('');
+}
 
-function archiveRound(state){
+function pickMember(name){
+  selectedMember=name;
+  buildJoinGrid(null);
+  document.getElementById('join-err').style.display='none';
+}
+
+async function joinGame(){
+  if(!selectedMember){document.getElementById('join-err').style.display='block';return;}
+  myName=selectedMember;
+  const m=memberFor(myName);
+  let state=await fbGet('/game');
+  if(!state){
+    state={phase:'submit',players:{},votes:{},host:myName};
+    await fbSet('/game',state);
+  }
+  if(!state.players)state.players={};
+  if(!state.players[myName]){
+    state.players[myName]={idea:null,bg:m.bg,color:m.color};
+    await fbPatch('/game/players',{[myName]:{idea:null,bg:m.bg,color:m.color}});
+  }
+  if(!state.host){await fbPatch('/game',{host:myName});state.host=myName;}
+  startPoll();
+  lastStateJson=null;lastPhase=null;
+  if(state.phase==='submit'){
+    if(state.players[myName]&&state.players[myName].idea)showWaiting(state);
+    else{draftArea=null;draftProblem=null;draftSolution=null;buildAreaGrid();show('s-step1');}
+  } else render(state);
+}
+
+// ── Steps ──
+function goStep2(){
+  if(!draftArea){document.getElementById('step1-err').style.display='block';return;}
+  document.getElementById('step1-err').style.display='none';
+  const a=AREAS.find(x=>x.name===draftArea);
+  document.getElementById('s2-chip').innerHTML=`<div class="idea-chip"><div class="idea-chip-label">Area</div><div class="idea-chip-val">${a.icon} ${a.name}</div></div>`;
+  if(draftProblem)document.getElementById('problem-input').value=draftProblem;
+  show('s-step2');
+}
+function goBackStep1(){draftProblem=document.getElementById('problem-input').value.trim();buildAreaGrid();show('s-step1');}
+function goStep3(){
+  const val=document.getElementById('problem-input').value.trim();
+  if(!val){document.getElementById('step2-err').style.display='block';return;}
+  document.getElementById('step2-err').style.display='none';
+  draftProblem=val;
+  const a=AREAS.find(x=>x.name===draftArea);
+  document.getElementById('s3-chip').innerHTML=`<div class="idea-chip"><div class="idea-chip-label">Area · Problem</div><div class="idea-chip-val">${a.icon} ${a.name} — ${draftProblem.slice(0,55)}${draftProblem.length>55?'…':''}</div></div>`;
+  if(draftSolution)document.getElementById('solution-input').value=draftSolution;
+  show('s-step3');
+}
+function goBackStep2(){draftSolution=document.getElementById('solution-input').value.trim();show('s-step2');}
+
+async function submitIdea(){
+  const sol=document.getElementById('solution-input').value.trim();
+  if(!sol){document.getElementById('step3-err').style.display='block';return;}
+  document.getElementById('step3-err').style.display='none';
+  draftSolution=sol;
+  const idea={area:draftArea,problem:draftProblem,solution:draftSolution};
+  await fbPatch('/game/players/'+encodeKey(myName),{idea});
+  const state=await fbGet('/game');
+  showWaiting(state);
+}
+
+function encodeKey(name){return name.replace(/[.#$/\[\]]/g,'_');}
+
+function showWaiting(state){
+  const idea=state.players[myName]&&state.players[myName].idea;
+  if(idea){
+    const a=AREAS.find(x=>x.name===idea.area)||{icon:'💡',name:idea.area};
+    document.getElementById('wait-area-tag').innerHTML=`<span class="badge b-host">${a.icon} ${idea.area}</span>`;
+    document.getElementById('wait-problem').textContent=idea.problem;
+    document.getElementById('wait-solution').textContent=idea.solution;
+  }
+  renderWaitTeam(state);
+  show('s-waiting');
+}
+
+function renderWaitTeam(state){
+  const players=state.players||{};
+  document.getElementById('wait-team-list').innerHTML=TEAM.filter(m=>players[m.name]!==undefined).map(m=>{
+    const d=players[m.name];
+    return `<div class="card" style="padding:12px 16px;">
+      <div class="player-row">
+        <div class="avatar" style="background:${m.bg};color:${m.color};">${m.icon}</div>
+        <span class="player-name">${m.name}${m.name===myName?' <span class="badge b-you">you</span>':''}</span>
+        ${m.name===state.host?'<span class="badge b-host">host</span>':''}
+        ${d&&d.idea?'<span class="badge b-done">ready ✓</span>':'<span class="badge b-wait">thinking…</span>'}
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('host-submit').style.display=state.host===myName?'block':'none';
+}
+
+// ── Master render ──
+function render(state){
+  const phase=state.phase;
+  if(phase!==lastPhase){
+    lastPhase=phase;
+    if(phase==='submit'){
+      const me=state.players&&state.players[myName];
+      if(me&&me.idea)showWaiting(state);
+    } else if(phase==='vote'){show('s-vote');renderVote(state);}
+    else if(phase==='results'){show('s-results');renderResults(state);launchConfetti();}
+  } else {
+    if(phase==='submit')renderWaitTeam(state);
+    if(phase==='vote')renderVote(state);
+  }
+  updateSyncs();
+}
+
+// ── Vote ──
+function renderVote(state){
+  const players=state.players||{};
+  const votes=state.votes||{};
+  const myVote=votes[myName];
+  const total=Object.keys(votes).length;
+  document.getElementById('vote-list').innerHTML=TEAM.filter(m=>players[m.name]).map(m=>{
+    const d=players[m.name];
+    const idea=d.idea||{};
+    const vc=Object.values(votes).filter(v=>v===m.name).length;
+    const pct=total>0?Math.round(vc/total*100):0;
+    const isMine=myVote===m.name;
+    const isOwn=m.name===myName;
+    const a=AREAS.find(x=>x.name===idea.area)||{icon:'💡',name:idea.area||''};
+    return `<div class="card tap${isMine?' selected':''}" onclick="${isOwn?'':'vote(\''+m.name+'\')'}" style="${isOwn?'opacity:.45;cursor:default;':''}">
+      <div class="player-row" style="margin-bottom:8px;">
+        <div class="avatar" style="background:${m.bg};color:${m.color};">${m.icon}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:14px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:6px;flex-wrap:wrap;">${m.name}${isOwn?' <span class="badge b-wait" style="font-size:10px;">your idea</span>':''}</div>
+          <div style="font-size:11px;color:var(--blue);font-weight:500;margin-top:2px;">${a.icon} ${a.name}</div>
+        </div>
+        ${isMine?'<span class="badge b-done">voted ✓</span>':''}
+      </div>
+      <div class="idea-field" style="margin-bottom:7px;"><div class="idea-field-label">Problem</div><div class="idea-field-val muted">${idea.problem||''}</div></div>
+      <div class="idea-field"><div class="idea-field-label">Solution</div><div class="idea-field-val">${idea.solution||''}</div></div>
+      <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:${pct}%"></div></div>
+      <div class="vote-meta"><span>${vc} vote${vc!==1?'s':''}</span><span>${pct}%</span></div>
+    </div>`;
+  }).join('');
+  document.getElementById('host-vote').style.display=state.host===myName?'block':'none';
+}
+
+async function vote(target){
+  if(target===myName)return;
+  await fbPatch('/game/votes',{[encodeKey(myName)]:target});
+  const state=await fbGet('/game');
+  renderVote(state);
+}
+
+// ── Results ──
+function renderResults(state){
+  const players=state.players||{};
+  const votes=state.votes||{};
   const tally={};
-  Object.keys(state.players).forEach(n=>{tally[n]=0;});
-  Object.values(state.votes).forEach(v=>{tally[v]=(tally[v]||0)+1;});
+  TEAM.forEach(m=>{if(players[m.name])tally[m.name]=0;});
+  Object.values(votes).forEach(v=>{if(tally[v]!==undefined)tally[v]++;});
   const sorted=Object.entries(tally).sort((a,b)=>b[1]-a[1]);
-  const [wName]=sorted[0];
-  const record={
-    date:nowDate(),
-    ts:Date.now(),
-    winner:wName,
-    totalVotes:Object.keys(state.votes).length,
-    ideas:Object.entries(state.players).map(([name,d])=>({
-      name,
-      idea:d.idea||{},
-      votes:tally[name]||0
-    })).sort((a,b)=>b.votes-a.votes)
-  };
-  const hist=loadHistory();
-  hist.unshift(record);
-  if(hist.length>30)hist.splice(30);
-  saveHistory(hist);
+  const [wName,wVotes]=sorted[0];
+  const wm=memberFor(wName);
+  const widea=(players[wName]&&players[wName].idea)||{};
+  const wa=AREAS.find(x=>x.name===widea.area)||{icon:'💡',name:widea.area||''};
+  const totalV=Object.keys(votes).length;
+
+  document.getElementById('winner-block').innerHTML=`
+    <div class="winner-banner">
+      <div class="winner-crown">🏆</div>
+      <div class="winner-name">${wName}</div>
+      <span class="winner-area-tag">${wa.icon} ${wa.name}</span>
+      <div style="margin-bottom:8px;">
+        <div class="winner-section-label">Problem</div>
+        <div class="copy-row"><div class="copy-text" id="copytext-winner-problem">${widea.problem||''}</div>${makeCopyBtn('winner-problem')}</div>
+      </div>
+      <div>
+        <div class="winner-section-label">Solution</div>
+        <div class="copy-row"><div class="copy-text" id="copytext-winner-solution">${widea.solution||''}</div>${makeCopyBtn('winner-solution')}</div>
+      </div>
+      <div class="winner-votes">${wVotes} vote${wVotes!==1?'s':''} · ${totalV>0?Math.round(wVotes/totalV*100):0}% of team</div>
+    </div>`;
+
+  document.getElementById('results-list').innerHTML=sorted.map(([name,count],i)=>{
+    const m=memberFor(name);
+    const idea=(players[name]&&players[name].idea)||{};
+    const a=AREAS.find(x=>x.name===idea.area)||{icon:'💡',name:idea.area||''};
+    const uid=name.toLowerCase().replace(/\s+/g,'_')+'_'+i;
+    return `<div class="card" style="opacity:${i===0?1:.65};">
+      <div class="player-row" style="margin-bottom:8px;">
+        <div class="rank${i===0?' first':''}">${i+1}</div>
+        <div class="avatar" style="background:${m.bg};color:${m.color};">${m.icon}</div>
+        <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:500;">${name}</div><div style="font-size:11px;color:var(--blue);font-weight:500;">${a.icon} ${a.name}</div></div>
+        <span style="font-size:13px;color:var(--text3);flex-shrink:0;">${count} vote${count!==1?'s':''}</span>
+      </div>
+      <div class="idea-field" style="margin-bottom:6px;"><div class="idea-field-label">Problem</div>
+        <div class="copy-row"><div class="copy-text idea-field-val muted" id="copytext-${uid}-prob">${idea.problem||''}</div>${makeCopyBtn(uid+'-prob')}</div>
+      </div>
+      <div class="idea-field"><div class="idea-field-label">Solution</div>
+        <div class="copy-row"><div class="copy-text idea-field-val" id="copytext-${uid}-sol">${idea.solution||''}</div>${makeCopyBtn(uid+'-sol')}</div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('host-results').style.display=state.host===myName?'block':'none';
 }
 
-// ── Toast ──
-let toastTimer=null;
-function showToast(msg){
-  const el=document.getElementById('toast');
-  el.textContent=msg;el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>el.classList.remove('show'),2000);
+// ── Host actions ──
+async function openVoting(){
+  const state=await fbGet('/game');
+  const players=state.players||{};
+  const missing=TEAM.filter(m=>players[m.name]&&!players[m.name].idea).map(m=>m.name);
+  if(missing.length){alert('Still waiting on: '+missing.join(', '));return;}
+  await fbPatch('/game',{phase:'vote'});
+  lastPhase=null;render({...state,phase:'vote'});
 }
 
-// ── Copy button ──
-const COPY_SVG=`<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
-const CHECK_SVG=`<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
-
-function makeCopyBtn(id){
-  return `<button class="copy-btn" id="cb-${id}" onclick="doCopy('${id}')" title="Copy to clipboard">${COPY_SVG}</button>`;
+async function revealResults(){
+  const state=await fbGet('/game');
+  const players=state.players||{};
+  const votes=state.votes||{};
+  const missing=Object.keys(players).filter(n=>!votes[n]);
+  const err=document.getElementById('vote-err');
+  if(missing.length){err.textContent='Still waiting on: '+missing.join(', ');err.style.display='block';return;}
+  err.style.display='none';
+  archiveRound(state);
+  await fbPatch('/game',{phase:'results'});
+  lastPhase=null;show('s-results');renderResults(state);launchConfetti();
 }
-function doCopy(id){
-  const target=document.getElementById('copytext-'+id);
-  if(!target)return;
-  const text=target.textContent||target.innerText;
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn=document.getElementById('cb-'+id);
-    if(btn){btn.classList.add('copied');btn.innerHTML=CHECK_SVG;}
-    showToast('Copied!');
-    setTimeout(()=>{if(btn){btn.classList.remove('copied');btn.innerHTML=COPY_SVG;}},2000);
-  }).catch(()=>showToast('Could not copy'));
+
+async function newRound(){
+  const state=await fbGet('/game');
+  const fresh={phase:'submit',host:myName,players:{},votes:{}};
+  // keep players but clear ideas
+  Object.keys(state.players||{}).forEach(n=>{
+    const m=memberFor(n);
+    fresh.players[n]={idea:null,bg:m.bg,color:m.color};
+  });
+  await fbSet('/game',fresh);
+  lastPhase=null;lastStateJson=null;
+  draftArea=null;draftProblem=null;draftSolution=null;
+  document.getElementById('problem-input').value='';
+  document.getElementById('solution-input').value='';
+  buildAreaGrid();show('s-step1');
+}
+
+async function leaveGame(){
+  if(pollTimer)clearInterval(pollTimer);
+  await fbDelete('/game/players/'+encodeKey(myName));
+  const state=await fbGet('/game');
+  if(state&&state.host===myName){
+    const others=Object.keys(state.players||{}).filter(n=>n!==myName);
+    await fbPatch('/game',{host:others.length?others[0]:null});
+  }
+  myName=null;lastPhase=null;lastStateJson=null;selectedMember=null;
+  initJoinScreen();
 }
 
 // ── Area grid ──
@@ -548,275 +742,46 @@ function selectArea(name){
   document.getElementById('step1-err').style.display='none';
 }
 
-// ── Join ──
-function joinGame(){
-  const name=document.getElementById('join-name').value.trim();
-  const err=document.getElementById('join-err');
-  if(!name){err.style.display='block';return;}
-  err.style.display='none';
-  myName=name;
-  let state=loadState()||blankState();
-  if(!state.players[name])state.players[name]={idea:null,color:colorFor(name)};
-  if(!state.host)state.host=name;
-  saveState(state);
-  startPoll();
-  if(state.phase==='submit'){
-    if(state.players[name]&&state.players[name].idea)showWaiting(state);
-    else{draftArea=null;draftProblem=null;draftSolution=null;buildAreaGrid();show('s-step1');}
-  } else render(state);
+// ── Copy ──
+const COPY_SVG=`<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+const CHECK_SVG=`<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+function makeCopyBtn(id){return `<button class="copy-btn" id="cb-${id}" onclick="doCopy('${id}')">${COPY_SVG}</button>`;}
+function doCopy(id){
+  const el=document.getElementById('copytext-'+id);
+  if(!el)return;
+  navigator.clipboard.writeText(el.textContent||'').then(()=>{
+    const btn=document.getElementById('cb-'+id);
+    if(btn){btn.classList.add('copied');btn.innerHTML=CHECK_SVG;}
+    showToast('Copied!');
+    setTimeout(()=>{if(btn){btn.classList.remove('copied');btn.innerHTML=COPY_SVG;}},2000);
+  }).catch(()=>showToast('Could not copy'));
 }
 
-function startPoll(){
-  if(pollTimer)clearInterval(pollTimer);
-  pollTimer=setInterval(()=>{const s=loadState();if(s)render(s);updateSyncs();},2200);
+// ── Toast ──
+let toastTimer=null;
+function showToast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2000);
 }
 
-// ── Steps ──
-function goStep2(){
-  if(!draftArea){document.getElementById('step1-err').style.display='block';return;}
-  document.getElementById('step1-err').style.display='none';
-  const a=AREAS.find(x=>x.name===draftArea);
-  document.getElementById('s2-chip').innerHTML=`<div class="idea-chip"><div class="idea-chip-label">Area</div><div class="idea-chip-val">${a.icon} ${a.name}</div></div>`;
-  if(draftProblem)document.getElementById('problem-input').value=draftProblem;
-  show('s-step2');
-}
-function goBackStep1(){draftProblem=document.getElementById('problem-input').value.trim();buildAreaGrid();show('s-step1');}
-
-function goStep3(){
-  const val=document.getElementById('problem-input').value.trim();
-  if(!val){document.getElementById('step2-err').style.display='block';return;}
-  document.getElementById('step2-err').style.display='none';
-  draftProblem=val;
-  const a=AREAS.find(x=>x.name===draftArea);
-  document.getElementById('s3-chip').innerHTML=`<div class="idea-chip"><div class="idea-chip-label">Area · Problem</div><div class="idea-chip-val">${a.icon} ${a.name} — ${draftProblem.slice(0,55)}${draftProblem.length>55?'…':''}</div></div>`;
-  if(draftSolution)document.getElementById('solution-input').value=draftSolution;
-  show('s-step3');
-}
-function goBackStep2(){draftSolution=document.getElementById('solution-input').value.trim();show('s-step2');}
-
-function submitIdea(){
-  const sol=document.getElementById('solution-input').value.trim();
-  if(!sol){document.getElementById('step3-err').style.display='block';return;}
-  document.getElementById('step3-err').style.display='none';
-  draftSolution=sol;
-  const state=loadState()||blankState();
-  if(!state.players[myName])state.players[myName]={color:colorFor(myName)};
-  state.players[myName].idea={area:draftArea,problem:draftProblem,solution:draftSolution};
-  saveState(state);
-  showWaiting(state);
-}
-
-function showWaiting(state){
-  const idea=state.players[myName]&&state.players[myName].idea;
-  if(idea){
-    const a=AREAS.find(x=>x.name===idea.area)||{icon:'💡',name:idea.area};
-    document.getElementById('wait-area-tag').innerHTML=`<span class="badge b-host">${a.icon} ${idea.area}</span>`;
-    document.getElementById('wait-problem').textContent=idea.problem;
-    document.getElementById('wait-solution').textContent=idea.solution;
-  }
-  renderWaitTeam(state);
-  show('s-waiting');
-}
-
-function renderWaitTeam(state){
-  document.getElementById('wait-team-list').innerHTML=Object.entries(state.players).map(([name,d])=>{
-    const av=d.color||colorFor(name);
-    return `<div class="card" style="padding:12px 16px;">
-      <div class="player-row">
-        <div class="avatar" style="background:${av.bg};color:${av.color};">${initials(name)}</div>
-        <span class="player-name">${name}${name===myName?' <span class="badge b-you">you</span>':''}</span>
-        ${name===state.host?'<span class="badge b-host">host</span>':''}
-        ${d.idea?'<span class="badge b-done">ready ✓</span>':'<span class="badge b-wait">thinking…</span>'}
-      </div>
-    </div>`;
-  }).join('');
-  document.getElementById('host-submit').style.display=state.host===myName?'block':'none';
-}
-
-// ── Master render ──
-function render(state){
-  const phase=state.phase;
-  if(phase!==lastPhase){
-    lastPhase=phase;
-    if(phase==='submit'){
-      const me=state.players[myName];
-      if(me&&me.idea)showWaiting(state);
-    } else if(phase==='vote'){show('s-vote');renderVote(state);}
-    else if(phase==='results'){show('s-results');renderResults(state);launchConfetti();}
-  } else {
-    if(phase==='submit')renderWaitTeam(state);
-    if(phase==='vote')renderVote(state);
-  }
-  updateSyncs();
-}
-
-// ── Vote ──
-function renderVote(state){
-  const players=state.players;
-  const myVote=state.votes[myName];
-  const total=Object.keys(state.votes).length;
-  document.getElementById('vote-list').innerHTML=Object.entries(players).map(([name,d])=>{
-    const av=d.color||colorFor(name);
-    const idea=d.idea||{};
-    const vc=Object.values(state.votes).filter(v=>v===name).length;
-    const pct=total>0?Math.round(vc/total*100):0;
-    const isMine=myVote===name;
-    const isOwn=name===myName;
-    const a=AREAS.find(x=>x.name===idea.area)||{icon:'💡',name:idea.area||''};
-    return `<div class="card tap${isMine?' selected':''}" onclick="${isOwn?'':'vote(\''+name+'\')'}" style="${isOwn?'opacity:0.45;cursor:default;':''}">
-      <div class="player-row" style="margin-bottom:8px;">
-        <div class="avatar" style="background:${av.bg};color:${av.color};">${initials(name)}</div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:14px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            ${name}${isOwn?' <span class="badge b-wait" style="font-size:10px;">your idea</span>':''}
-          </div>
-          <div style="font-size:11px;color:var(--blue);font-weight:500;margin-top:2px;">${a.icon} ${a.name}</div>
-        </div>
-        ${isMine?'<span class="badge b-done">voted ✓</span>':''}
-      </div>
-      <div class="idea-field" style="margin-bottom:7px;">
-        <div class="idea-field-label">Problem</div>
-        <div class="idea-field-val muted">${idea.problem||''}</div>
-      </div>
-      <div class="idea-field">
-        <div class="idea-field-label">Solution</div>
-        <div class="idea-field-val">${idea.solution||''}</div>
-      </div>
-      <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:${pct}%"></div></div>
-      <div class="vote-meta"><span>${vc} vote${vc!==1?'s':''}</span><span>${pct}%</span></div>
-    </div>`;
-  }).join('');
-  document.getElementById('host-vote').style.display=state.host===myName?'block':'none';
-}
-
-function vote(target){
-  if(target===myName)return;
-  const state=loadState();
-  state.votes[myName]=target;
-  saveState(state);
-  renderVote(state);
-}
-
-// ── Results ──
-function renderResults(state){
+// ── History ──
+function loadHistory(){try{const v=localStorage.getItem(HISTORY_KEY);return v?JSON.parse(v):[];}catch{return[];}}
+function saveHistory(h){try{localStorage.setItem(HISTORY_KEY,JSON.stringify(h));}catch{}}
+function archiveRound(state){
+  const players=state.players||{};
+  const votes=state.votes||{};
   const tally={};
-  Object.keys(state.players).forEach(n=>{tally[n]=0;});
-  Object.values(state.votes).forEach(v=>{tally[v]=(tally[v]||0)+1;});
+  Object.keys(players).forEach(n=>{tally[n]=0;});
+  Object.values(votes).forEach(v=>{if(tally[v]!==undefined)tally[v]++;});
   const sorted=Object.entries(tally).sort((a,b)=>b[1]-a[1]);
-  const [wName,wVotes]=sorted[0];
-  const wd=state.players[wName];
-  const widea=wd.idea||{};
-  const wa=AREAS.find(x=>x.name===widea.area)||{icon:'💡',name:widea.area||''};
-  const totalV=Object.keys(state.votes).length;
-
-  document.getElementById('winner-block').innerHTML=`
-    <div class="winner-banner">
-      <div class="winner-crown">🏆</div>
-      <div class="winner-name">${wName}</div>
-      <span class="winner-area-tag">${wa.icon} ${wa.name}</span>
-      <div style="margin-bottom:8px;">
-        <div class="winner-section-label">Problem</div>
-        <div class="copy-row">
-          <div class="copy-text" id="copytext-winner-problem">${widea.problem||''}</div>
-          ${makeCopyBtn('winner-problem')}
-        </div>
-      </div>
-      <div>
-        <div class="winner-section-label">Solution</div>
-        <div class="copy-row">
-          <div class="copy-text" id="copytext-winner-solution">${widea.solution||''}</div>
-          ${makeCopyBtn('winner-solution')}
-        </div>
-      </div>
-      <div class="winner-votes">${wVotes} vote${wVotes!==1?'s':''} · ${Math.round(wVotes/totalV*100)}% of team</div>
-    </div>`;
-
-  document.getElementById('results-list').innerHTML=sorted.map(([name,count],i)=>{
-    const d=state.players[name];
-    const av=d.color||colorFor(name);
-    const idea=d.idea||{};
-    const a=AREAS.find(x=>x.name===idea.area)||{icon:'💡',name:idea.area||''};
-    const uid=name.replace(/\s+/g,'_').toLowerCase()+'_'+i;
-    return `<div class="card" style="opacity:${i===0?1:0.65};">
-      <div class="player-row" style="margin-bottom:8px;">
-        <div class="rank${i===0?' first':''}">${i+1}</div>
-        <div class="avatar" style="background:${av.bg};color:${av.color};">${initials(name)}</div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:14px;font-weight:500;">${name}</div>
-          <div style="font-size:11px;color:var(--blue);font-weight:500;">${a.icon} ${a.name}</div>
-        </div>
-        <span style="font-size:13px;color:var(--text3);flex-shrink:0;">${count} vote${count!==1?'s':''}</span>
-      </div>
-      <div class="idea-field" style="margin-bottom:6px;">
-        <div class="idea-field-label">Problem</div>
-        <div class="copy-row">
-          <div class="copy-text idea-field-val muted" id="copytext-${uid}-prob">${idea.problem||''}</div>
-          ${makeCopyBtn(uid+'-prob')}
-        </div>
-      </div>
-      <div class="idea-field">
-        <div class="idea-field-label">Solution</div>
-        <div class="copy-row">
-          <div class="copy-text idea-field-val" id="copytext-${uid}-sol">${idea.solution||''}</div>
-          ${makeCopyBtn(uid+'-sol')}
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-
-  document.getElementById('host-results').style.display=state.host===myName?'block':'none';
+  const record={date:nowDate(),ts:Date.now(),winner:sorted[0][0],totalVotes:Object.keys(votes).length,
+    ideas:sorted.map(([name,vc])=>({name,idea:players[name].idea||{},votes:vc}))};
+  const hist=loadHistory();hist.unshift(record);if(hist.length>30)hist.splice(30);saveHistory(hist);
 }
-
-// ── Host actions ──
-function openVoting(){
-  const state=loadState();
-  const missing=Object.entries(state.players).filter(([n,d])=>!d.idea);
-  if(missing.length){alert('Still waiting on: '+missing.map(([n])=>n).join(', '));return;}
-  state.phase='vote';saveState(state);lastPhase=null;render(state);
-}
-
-function revealResults(){
-  const state=loadState();
-  const missing=Object.keys(state.players).filter(n=>!state.votes[n]);
-  const err=document.getElementById('vote-err');
-  if(missing.length){err.textContent='Still waiting on: '+missing.join(', ');err.style.display='block';return;}
-  err.style.display='none';
-  archiveRound(state);
-  state.phase='results';saveState(state);lastPhase=null;
-  show('s-results');renderResults(state);launchConfetti();
-}
-
-function newRound(){
-  const state=loadState();
-  const fresh=blankState();
-  fresh.host=myName;
-  Object.keys(state.players).forEach(n=>{fresh.players[n]={idea:null,color:state.players[n].color||colorFor(n)};});
-  saveState(fresh);lastPhase=null;
-  draftArea=null;draftProblem=null;draftSolution=null;
-  document.getElementById('problem-input').value='';
-  document.getElementById('solution-input').value='';
-  buildAreaGrid();show('s-step1');
-}
-
-function leaveGame(){
-  if(pollTimer)clearInterval(pollTimer);
-  const state=loadState();
-  if(state&&state.players[myName]){
-    delete state.players[myName];
-    if(state.host===myName){const o=Object.keys(state.players);state.host=o.length?o[0]:null;}
-    saveState(state);
-  }
-  myName=null;lastPhase=null;draftArea=null;show('s-join');
-}
-
-// ── History panel ──
-function openHistory(){
-  renderHistory();
-  document.getElementById('history-panel').classList.add('open');
-}
-function closeHistory(){
-  document.getElementById('history-panel').classList.remove('open');
-}
+function openHistory(){renderHistory();document.getElementById('history-panel').classList.add('open');}
+function closeHistory(){document.getElementById('history-panel').classList.remove('open');}
 function renderHistory(){
   const hist=loadHistory();
   const empty=document.getElementById('history-empty');
@@ -824,40 +789,32 @@ function renderHistory(){
   if(!hist.length){empty.style.display='block';list.innerHTML='';return;}
   empty.style.display='none';
   list.innerHTML=hist.map((round,ri)=>{
-    const ideasHtml=round.ideas.map((item,ii)=>{
+    const ideas=round.ideas.map((item,ii)=>{
       const a=AREAS.find(x=>x.name===item.idea.area)||{icon:'💡',name:item.idea.area||''};
       const uid='h'+ri+'i'+ii;
-      const isWinner=item.name===round.winner;
-      return `<div style="padding:12px 0;border-top:1px solid var(--border);${isWinner?'':'opacity:0.65;'}">
+      const isW=item.name===round.winner;
+      return `<div style="padding:12px 0;border-top:1px solid var(--border);${isW?'':'opacity:.65;}">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
-          ${isWinner?'<span style="font-size:13px;">🏆</span>':'<span style="font-size:12px;color:var(--text3);font-weight:600;">#'+(ii+1)+'</span>'}
-          <span style="font-size:13px;font-weight:600;color:var(--text);">${item.name}</span>
+          ${isW?'<span>🏆</span>':'<span style="font-size:12px;color:var(--text3);font-weight:600;">#'+(ii+1)+'</span>'}
+          <span style="font-size:13px;font-weight:600;">${item.name}</span>
           <span style="font-size:11px;background:var(--blue-light);color:var(--blue);padding:2px 8px;border-radius:999px;">${a.icon} ${a.name}</span>
           <span style="font-size:11px;color:var(--text3);margin-left:auto;">${item.votes} vote${item.votes!==1?'s':''}</span>
         </div>
-        <div class="idea-field" style="margin-bottom:5px;">
-          <div class="idea-field-label">Problem</div>
-          <div class="copy-row">
-            <div class="copy-text idea-field-val muted" id="copytext-${uid}-prob">${item.idea.problem||''}</div>
-            ${makeCopyBtn(uid+'-prob')}
-          </div>
+        <div class="idea-field" style="margin-bottom:5px;"><div class="idea-field-label">Problem</div>
+          <div class="copy-row"><div class="copy-text idea-field-val muted" id="copytext-${uid}-prob">${item.idea.problem||''}</div>${makeCopyBtn(uid+'-prob')}</div>
         </div>
-        <div class="idea-field">
-          <div class="idea-field-label">Solution</div>
-          <div class="copy-row">
-            <div class="copy-text idea-field-val" id="copytext-${uid}-sol">${item.idea.solution||''}</div>
-            ${makeCopyBtn(uid+'-sol')}
-          </div>
+        <div class="idea-field"><div class="idea-field-label">Solution</div>
+          <div class="copy-row"><div class="copy-text idea-field-val" id="copytext-${uid}-sol">${item.idea.solution||''}</div>${makeCopyBtn(uid+'-sol')}</div>
         </div>
       </div>`;
     }).join('');
-    return `<div class="card" style="margin-bottom:14px;padding:16px 18px;">
+    return `<div class="card" style="margin-bottom:14px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;flex-wrap:wrap;gap:6px;">
         <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--orange);">${round.date}</span>
         <span style="font-size:12px;color:var(--text3);">${round.ideas.length} ideas · ${round.totalVotes} votes</span>
       </div>
       <div style="font-size:13px;color:var(--text2);margin-bottom:10px;">Winner: <strong style="color:var(--text);">${round.winner}</strong></div>
-      ${ideasHtml}
+      ${ideas}
     </div>`;
   }).join('');
 }
@@ -868,30 +825,25 @@ function launchConfetti(){
   const ctx=canvas.getContext('2d');
   canvas.width=window.innerWidth;canvas.height=window.innerHeight;
   const colors=['#1A4FD6','#F7720A','#12A86A','#3D6BE8','#FFB347','#5AB4FF'];
-  const pieces=Array.from({length:90},()=>({
-    x:Math.random()*canvas.width,y:-10-Math.random()*120,
-    r:4+Math.random()*5,dx:(Math.random()-0.5)*3,dy:2+Math.random()*3.5,
-    color:colors[Math.floor(Math.random()*colors.length)],
-    rot:Math.random()*360,drot:(Math.random()-0.5)*9
-  }));
+  const pieces=Array.from({length:90},()=>({x:Math.random()*canvas.width,y:-10-Math.random()*120,r:4+Math.random()*5,dx:(Math.random()-.5)*3,dy:2+Math.random()*3.5,color:colors[Math.floor(Math.random()*colors.length)],rot:Math.random()*360,drot:(Math.random()-.5)*9}));
   let frame=0;
-  function draw(){
+  (function draw(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    pieces.forEach(p=>{
-      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
-      ctx.fillStyle=p.color;ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);
-      ctx.restore();p.x+=p.dx;p.y+=p.dy;p.rot+=p.drot;
-    });
-    frame++;
-    if(frame<140)requestAnimationFrame(draw);
+    pieces.forEach(p=>{ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);ctx.fillStyle=p.color;ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);ctx.restore();p.x+=p.dx;p.y+=p.dy;p.rot+=p.drot;});
+    if(++frame<140)requestAnimationFrame(draw);
     else ctx.clearRect(0,0,canvas.width,canvas.height);
-  }
-  draw();
+  })();
 }
 
 // ── Init ──
-document.getElementById('join-name').addEventListener('keydown',e=>{if(e.key==='Enter')joinGame();});
-buildAreaGrid();
+(function init(){
+  const saved=localStorage.getItem(FB_URL_KEY);
+  if(saved){
+    fbUrl=saved;
+    document.getElementById('setup-overlay').classList.add('hidden');
+    initJoinScreen();
+  }
+})();
 </script>
 </body>
 </html>
