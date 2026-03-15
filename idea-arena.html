@@ -224,7 +224,7 @@ code{background:var(--surface);border:1px solid var(--border);border-radius:5px;
       <input type="text" id="fb-url-input" placeholder="https://your-project-default-rtdb.firebaseio.com"/>
     </div>
     <div class="error-msg" id="fb-err" style="margin-bottom:12px;"></div>
-    <button class="btn btn-primary" id="fb-connect-btn" onclick="saveFirebaseUrl()">Connect & Play →</button>
+    <button class="btn btn-primary" id="fb-connect-btn">Connect & Play →</button>
   </div>
 </div>
 
@@ -408,38 +408,43 @@ function memberFor(name){return TEAM.find(m=>m.name===name)||{name,icon:name[0].
 
 // ── Firebase URL setup ──
 async function saveFirebaseUrl(){
-  const val=document.getElementById('fb-url-input').value.trim().replace(/\/+$/,'');
-  const err=document.getElementById('fb-err');
+  const raw=document.getElementById('fb-url-input').value.trim().replace(/\/+$/,'');
   const btn=document.getElementById('fb-connect-btn');
 
-  // Basic format check
-  if(!val.startsWith('https://')||!val.includes('firebaseio.com')){
-    err.textContent='That doesn\'t look right. It should start with https:// and contain firebaseio.com';
-    err.style.display='block';return;
+  function showErr(msg){
+    const el=document.getElementById('fb-err');
+    el.textContent=msg;
+    el.style.cssText='display:block!important;color:#D63A1A;font-size:13px;margin-bottom:12px;line-height:1.5;margin-top:8px;';
   }
-  err.style.display='none';
+  function hideErr(){
+    document.getElementById('fb-err').style.display='none';
+  }
+
+  if(!raw){showErr('Please paste your Firebase Database URL first.');return;}
+  if(!raw.includes('firebaseio.com')){showErr('That doesn\'t look like a Firebase URL — it should contain "firebaseio.com".');return;}
+
+  const val=raw.startsWith('http')?raw:'https://'+raw;
   btn.textContent='Connecting…';
   btn.disabled=true;
+  hideErr();
 
-  // Actually test the connection
   try{
-    const testUrl=val+'/ping.json';
-    const r=await fetch(testUrl,{method:'PUT',body:JSON.stringify(1),headers:{'Content-Type':'application/json'}});
-    if(!r.ok){
-      const body=await r.text();
-      if(r.status===401||r.status===403){
-        err.textContent='Permission denied. Make sure you set Realtime Database rules to test mode (allow read/write: true).';
-      } else {
-        err.textContent='Firebase error '+r.status+': '+body.slice(0,120);
-      }
-      err.style.display='block';
+    const r=await fetch(val+'/ideaarena_test.json',{
+      method:'PUT',
+      body:JSON.stringify({ok:true}),
+      headers:{'Content-Type':'application/json'}
+    });
+    if(r.status===401||r.status===403){
+      showErr('Permission denied. In Firebase console go to Realtime Database → Rules tab → set .read and .write to true → Publish.');
       btn.textContent='Connect & Play →';btn.disabled=false;return;
     }
-    // Clean up ping
-    await fetch(val+'/ping.json',{method:'DELETE'});
+    if(!r.ok){
+      showErr('Firebase returned error '+r.status+'. Double-check the URL.');
+      btn.textContent='Connect & Play →';btn.disabled=false;return;
+    }
+    fetch(val+'/ideaarena_test.json',{method:'DELETE'});
   }catch(e){
-    err.textContent='Could not reach Firebase. Check the URL and your internet connection. ('+e.message+')';
-    err.style.display='block';
+    showErr('Cannot reach Firebase. Check your internet and the URL. ('+e.message+')');
     btn.textContent='Connect & Play →';btn.disabled=false;return;
   }
 
@@ -828,7 +833,7 @@ function renderHistory(){
       const a=AREAS.find(x=>x.name===item.idea.area)||{icon:'💡',name:item.idea.area||''};
       const uid='h'+ri+'i'+ii;
       const isW=item.name===round.winner;
-      return `<div style="padding:12px 0;border-top:1px solid var(--border);${isW?'':'opacity:.65;}">
+      return `<div style="padding:12px 0;border-top:1px solid var(--border);${isW?'':'opacity:.65;'}">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
           ${isW?'<span>🏆</span>':'<span style="font-size:12px;color:var(--text3);font-weight:600;">#'+(ii+1)+'</span>'}
           <span style="font-size:13px;font-weight:600;">${item.name}</span>
@@ -882,11 +887,17 @@ function resetFirebase(){
 
 // ── Init ──
 (function init(){
+  // Attach button listeners now that DOM is ready
+  document.getElementById('fb-connect-btn').addEventListener('click', saveFirebaseUrl);
+  document.getElementById('fb-url-input').addEventListener('keydown', function(e){ if(e.key==='Enter') saveFirebaseUrl(); });
+
   const saved=localStorage.getItem(FB_URL_KEY);
   if(saved){
     fbUrl=saved;
     document.getElementById('setup-overlay').classList.add('hidden');
     initJoinScreen();
+  } else {
+    document.getElementById('setup-overlay').classList.remove('hidden');
   }
 })();
 </script>
