@@ -15,7 +15,6 @@
   --border-strong:#B8C2E0;
   --blue:#1A4FD6;
   --blue-light:#EEF2FF;
-  --blue-mid:#3D6BE8;
   --blue-dark:#1239A8;
   --orange:#F7720A;
   --orange-light:#FFF3E8;
@@ -28,29 +27,86 @@
   --radius:14px;
   --radius-sm:10px;
 }
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow:hidden;}
-#root{height:100%;display:flex;flex-direction:column;max-width:480px;margin:0 auto;position:relative;overflow:hidden;}
 
-.screen{position:absolute;inset:0;display:flex;flex-direction:column;padding:44px 22px 32px;opacity:0;pointer-events:none;transform:translateY(22px);transition:opacity 0.38s cubic-bezier(.4,0,.2,1),transform 0.38s cubic-bezier(.4,0,.2,1);overflow-y:auto;-webkit-overflow-scrolling:touch;}
+/* ── Global overflow lock ── */
+html,body{
+  height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  overflow:hidden;
+  max-width:100vw;
+}
+*{word-break:break-word;overflow-wrap:break-word;}
+
+#root{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  max-width:480px;
+  margin:0 auto;
+  position:relative;
+  overflow:hidden;
+}
+
+/* ── Screens ── */
+.screen{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  padding:44px 22px 32px;
+  opacity:0;pointer-events:none;
+  transform:translateY(22px);
+  transition:opacity 0.38s cubic-bezier(.4,0,.2,1),transform 0.38s cubic-bezier(.4,0,.2,1);
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
 .screen.active{opacity:1;pointer-events:all;transform:translateY(0);}
 .screen::-webkit-scrollbar{width:0;}
 
-.logo{display:flex;align-items:center;gap:9px;margin-bottom:36px;}
-.logo-icon{width:32px;height:32px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;}
-.logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--blue);letter-spacing:0.01em;}
+/* ── Logo ── */
+.logo{display:flex;align-items:center;gap:9px;margin-bottom:36px;flex-shrink:0;}
+.logo-icon{width:32px;height:32px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--blue);}
+.logo-right{margin-left:auto;}
 
+/* ── Typography ── */
 .big-title{font-family:'Syne',sans-serif;font-weight:800;font-size:36px;line-height:1.08;margin-bottom:10px;letter-spacing:-0.02em;color:var(--text);}
 .big-title .accent{color:var(--orange);}
 .big-title .blue{color:var(--blue);}
 .sub{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:26px;}
 .label{font-size:11px;font-weight:500;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-bottom:8px;}
 
-input,textarea{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--text);outline:none;transition:border-color 0.2s,box-shadow 0.2s;-webkit-appearance:none;}
+/* ── Inputs ── */
+input,textarea{
+  width:100%;
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;color:var(--text);
+  outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+  -webkit-appearance:none;
+  max-width:100%;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
 input:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,79,214,0.1);}
 textarea{resize:none;height:110px;line-height:1.65;}
 ::placeholder{color:var(--text3);}
 
-.btn{width:100%;padding:16px;border-radius:var(--radius);font-family:'Syne',sans-serif;font-weight:700;font-size:15px;letter-spacing:0.02em;border:none;cursor:pointer;transition:transform 0.15s,opacity 0.15s,box-shadow 0.2s;-webkit-tap-highlight-color:transparent;}
+/* ── Buttons ── */
+.btn{
+  width:100%;padding:16px;border-radius:var(--radius);
+  font-family:'Syne',sans-serif;font-weight:700;font-size:15px;
+  letter-spacing:0.02em;border:none;cursor:pointer;
+  transition:transform 0.15s,opacity 0.15s,box-shadow 0.2s;
+  -webkit-tap-highlight-color:transparent;
+  flex-shrink:0;
+}
 .btn:active{transform:scale(0.97);}
 .btn-primary{background:var(--blue);color:#fff;box-shadow:0 4px 18px rgba(26,79,214,0.22);}
 .btn-primary:hover{background:var(--blue-dark);}
@@ -59,26 +115,42 @@ textarea{resize:none;height:110px;line-height:1.65;}
 .btn-ghost{background:transparent;border:1.5px solid var(--border-strong);color:var(--text2);font-family:'DM Sans',sans-serif;font-weight:400;font-size:14px;padding:13px;}
 .btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
 .btn:disabled{opacity:0.35;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-icon{width:auto;padding:7px 10px;border-radius:8px;font-size:13px;display:inline-flex;align-items:center;gap:5px;line-height:1;}
 
-.card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:11px;transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s;}
+/* ── Cards ── */
+.card{
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px 18px;
+  margin-bottom:11px;
+  transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s;
+  overflow:hidden;
+  min-width:0;
+}
 .card.tap{cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .card.tap:hover{border-color:var(--blue);box-shadow:0 2px 12px rgba(26,79,214,0.08);}
 .card.tap:active{transform:scale(0.985);}
 .card.selected{border-color:var(--blue);background:var(--blue-light);box-shadow:0 2px 14px rgba(26,79,214,0.12);}
 .card.success{border-color:var(--green);background:var(--green-light);}
 
+/* ── Avatar ── */
 .avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;flex-shrink:0;}
-.player-row{display:flex;align-items:center;gap:12px;}
-.player-name{flex:1;font-size:15px;font-weight:500;color:var(--text);}
 
-.badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;letter-spacing:0.02em;}
+/* ── Player row ── */
+.player-row{display:flex;align-items:center;gap:12px;min-width:0;}
+.player-name{flex:1;font-size:15px;font-weight:500;color:var(--text);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/* ── Badges ── */
+.badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;letter-spacing:0.02em;white-space:nowrap;flex-shrink:0;}
 .b-done{background:var(--green-light);color:var(--green);}
 .b-wait{background:var(--surface);color:var(--text3);}
 .b-host{background:var(--blue-light);color:var(--blue);}
 .b-you{background:var(--orange-light);color:var(--orange);}
 
-.phase-pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;padding:5px 13px;border-radius:999px;margin-bottom:20px;letter-spacing:0.04em;}
-.phase-pill .dot{width:7px;height:7px;border-radius:50%;}
+/* ── Phase pill ── */
+.phase-pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;padding:5px 13px;border-radius:999px;margin-bottom:20px;letter-spacing:0.04em;flex-shrink:0;}
+.phase-pill .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 .pill-orange{background:var(--orange-light);color:var(--orange);border:1px solid rgba(247,114,10,0.2);}
 .pill-orange .dot{background:var(--orange);}
 .pill-blue{background:var(--blue-light);color:var(--blue);border:1px solid rgba(26,79,214,0.15);}
@@ -88,64 +160,150 @@ textarea{resize:none;height:110px;line-height:1.65;}
 
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
 
-.sync-bar{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text3);margin-bottom:20px;}
-.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite;}
+/* ── Sync bar ── */
+.sync-bar{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text3);margin-bottom:20px;flex-shrink:0;}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite;flex-shrink:0;}
 
+/* ── Vote bars ── */
 .vote-bar-bg{height:4px;background:var(--surface);border-radius:2px;margin-top:10px;}
 .vote-bar-fill{height:4px;background:var(--blue);border-radius:2px;transition:width 0.5s cubic-bezier(.4,0,.2,1);}
 .vote-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text3);margin-top:5px;}
 
-.winner-banner{border:2px solid var(--orange);border-radius:18px;padding:26px 22px;text-align:center;margin-bottom:20px;background:var(--white);position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(247,114,10,0.12);}
+/* ── Winner banner ── */
+.winner-banner{
+  border:2px solid var(--orange);border-radius:18px;
+  padding:26px 22px;text-align:center;margin-bottom:20px;
+  background:var(--white);position:relative;overflow:hidden;
+  box-shadow:0 8px 32px rgba(247,114,10,0.12);
+}
 .winner-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -10%,rgba(247,114,10,0.1),transparent 65%);}
 .winner-crown{font-size:38px;margin-bottom:10px;position:relative;}
 .winner-name{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:var(--orange);margin-bottom:6px;position:relative;}
 .winner-area-tag{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;margin-bottom:10px;background:var(--blue-light);color:var(--blue);position:relative;}
-.winner-problem{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:8px;position:relative;}
-.winner-solution{font-size:15px;color:var(--text);line-height:1.65;font-style:italic;position:relative;}
+.winner-section-label{font-size:11px;font-weight:500;letter-spacing:0.08em;color:var(--text3);text-transform:uppercase;margin-bottom:4px;text-align:left;position:relative;}
+.winner-text{font-size:14px;color:var(--text);line-height:1.65;text-align:left;position:relative;word-break:break-word;overflow-wrap:break-word;}
 .winner-votes{font-size:13px;color:var(--text3);margin-top:10px;position:relative;}
 
+/* ── Copy row ── */
+.copy-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;position:relative;}
+.copy-row .copy-text{flex:1;min-width:0;font-size:14px;color:var(--text);line-height:1.65;word-break:break-word;overflow-wrap:break-word;}
+.copy-btn{
+  flex-shrink:0;
+  width:30px;height:30px;
+  border-radius:8px;
+  border:1.5px solid var(--border);
+  background:var(--white);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color 0.15s,background 0.15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.copy-btn:hover{border-color:var(--blue);background:var(--blue-light);}
+.copy-btn svg{width:14px;height:14px;stroke:var(--text3);transition:stroke 0.15s;}
+.copy-btn:hover svg{stroke:var(--blue);}
+.copy-btn.copied{border-color:var(--green);background:var(--green-light);}
+.copy-btn.copied svg{stroke:var(--green);}
+
+/* ── Rank ── */
 .rank{width:26px;height:26px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text3);flex-shrink:0;}
 .rank.first{background:var(--orange-light);border-color:var(--orange);color:var(--orange);}
 
-.divider{border:none;border-top:1px solid var(--border);margin:20px 0;}
+/* ── Divider / utils ── */
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0;flex-shrink:0;}
 .error-msg{font-size:13px;color:#D63A1A;margin-top:8px;display:none;line-height:1.5;}
 .section-title{font-size:11px;font-weight:500;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-bottom:12px;}
 .gap{margin-bottom:14px;}
-.mt{margin-top:16px;}
 
-.step-indicator{display:flex;align-items:center;gap:7px;margin-bottom:24px;}
+/* ── Step indicator ── */
+.step-indicator{display:flex;align-items:center;gap:7px;margin-bottom:24px;flex-shrink:0;}
 .step-pip{height:5px;flex:1;border-radius:3px;background:var(--border);transition:background 0.3s;}
 .step-pip.active{background:var(--blue);}
 .step-pip.done{background:var(--orange);}
 
+/* ── Area grid ── */
 .area-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
 .area-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px;cursor:pointer;transition:all 0.18s;-webkit-tap-highlight-color:transparent;text-align:left;}
 .area-card:hover{border-color:var(--orange);box-shadow:0 2px 10px rgba(247,114,10,0.1);}
 .area-card:active{transform:scale(0.97);}
-.area-card.chosen{border-color:var(--orange);background:var(--orange-light);box-shadow:0 2px 12px rgba(247,114,10,0.15);}
+.area-card.chosen{border-color:var(--orange);background:var(--orange-light);}
 .area-card .area-icon{font-size:22px;margin-bottom:6px;}
 .area-card .area-name{font-size:13px;font-weight:500;color:var(--text);}
 .area-card.chosen .area-name{color:var(--orange-dark);}
 
-.idea-chip{background:var(--blue-light);border:1px solid rgba(26,79,214,0.15);border-radius:9px;padding:10px 14px;margin-bottom:14px;}
+/* ── Idea chip ── */
+.idea-chip{background:var(--blue-light);border:1px solid rgba(26,79,214,0.15);border-radius:9px;padding:10px 14px;margin-bottom:14px;min-width:0;overflow:hidden;}
 .idea-chip-label{font-size:10px;font-weight:500;letter-spacing:0.1em;color:var(--blue);text-transform:uppercase;margin-bottom:4px;}
-.idea-chip-val{font-size:14px;color:var(--text);line-height:1.5;}
+.idea-chip-val{font-size:14px;color:var(--text);line-height:1.5;word-break:break-word;}
 
-.back-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--text3);cursor:pointer;margin-bottom:20px;background:none;border:none;font-family:'DM Sans',sans-serif;transition:color 0.15s;padding:0;}
+/* ── Back link ── */
+.back-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--text3);cursor:pointer;margin-bottom:20px;background:none;border:none;font-family:'DM Sans',sans-serif;transition:color 0.15s;padding:0;flex-shrink:0;}
 .back-link:hover{color:var(--blue);}
 
-.join-hero{width:72px;height:72px;background:var(--blue);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:24px;box-shadow:0 8px 24px rgba(26,79,214,0.25);}
+/* ── Join hero ── */
+.join-hero{width:72px;height:72px;background:var(--blue);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:24px;box-shadow:0 8px 24px rgba(26,79,214,0.25);flex-shrink:0;}
 
-#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:999;}
+/* ── History panel (slide-over) ── */
+#history-panel{
+  position:fixed;inset:0;z-index:500;
+  display:flex;flex-direction:column;
+  max-width:480px;margin:0 auto;
+  background:var(--bg);
+  transform:translateX(100%);
+  transition:transform 0.35s cubic-bezier(.4,0,.2,1);
+  overflow:hidden;
+}
+#history-panel.open{transform:translateX(0);}
+#history-panel-inner{flex:1;overflow-y:auto;overflow-x:hidden;padding:44px 22px 32px;-webkit-overflow-scrolling:touch;}
+#history-panel-inner::-webkit-scrollbar{width:0;}
+
+/* ── Toast ── */
+#toast{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--text);color:#fff;
+  font-size:13px;padding:9px 18px;border-radius:999px;
+  opacity:0;transition:opacity 0.2s,transform 0.2s;
+  pointer-events:none;white-space:nowrap;z-index:600;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── Confetti ── */
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:400;}
+
+/* ── Idea content text blocks (shared) ── */
+.idea-field{min-width:0;overflow:hidden;}
+.idea-field-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;}
+.idea-field-val{font-size:14px;color:var(--text);line-height:1.65;word-break:break-word;overflow-wrap:break-word;}
+.idea-field-val.muted{color:var(--text2);font-size:13px;}
 </style>
 </head>
 <body>
 <canvas id="confetti-canvas"></canvas>
+<div id="toast"></div>
+
+<!-- ── History panel ── -->
+<div id="history-panel">
+  <div id="history-panel-inner">
+    <div class="logo">
+      <div class="logo-icon">📖</div>
+      <div class="logo-text">History</div>
+      <button class="back-link logo-right" style="margin-bottom:0;" onclick="closeHistory()">✕ Close</button>
+    </div>
+    <div id="history-empty" style="display:none;">
+      <div class="sub">No past rounds yet. Finish your first game to see history here.</div>
+    </div>
+    <div id="history-list"></div>
+  </div>
+</div>
+
 <div id="root">
 
-  <!-- JOIN -->
+  <!-- ── JOIN ── -->
   <div class="screen active" id="s-join">
-    <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
+    <div class="logo">
+      <div class="logo-icon">💡</div>
+      <div class="logo-text">Idea Arena</div>
+      <button class="btn-icon btn-ghost logo-right" style="font-family:'DM Sans',sans-serif;font-size:13px;" onclick="openHistory()">📖 History</button>
+    </div>
     <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
       <div class="join-hero">🚀</div>
       <div class="big-title">Your daily<br><span class="accent">idea</span><br>battle.</div>
@@ -158,7 +316,7 @@ textarea{resize:none;height:110px;line-height:1.65;}
     </div>
   </div>
 
-  <!-- STEP 1: AREA -->
+  <!-- ── STEP 1: AREA ── -->
   <div class="screen" id="s-step1">
     <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
     <div class="sync-bar"><span class="sync-dot"></span><span id="sync-s1">Live</span></div>
@@ -174,7 +332,7 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <button class="btn btn-orange" onclick="goStep2()">Next →</button>
   </div>
 
-  <!-- STEP 2: PROBLEM -->
+  <!-- ── STEP 2: PROBLEM ── -->
   <div class="screen" id="s-step2">
     <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
     <div class="sync-bar"><span class="sync-dot"></span><span id="sync-s2">Live</span></div>
@@ -193,7 +351,7 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <button class="btn btn-orange" onclick="goStep3()">Next →</button>
   </div>
 
-  <!-- STEP 3: SOLUTION -->
+  <!-- ── STEP 3: SOLUTION ── -->
   <div class="screen" id="s-step3">
     <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
     <div class="sync-bar"><span class="sync-dot"></span><span id="sync-s3">Live</span></div>
@@ -212,7 +370,7 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <button class="btn btn-primary" onclick="submitIdea()">Lock it in ✓</button>
   </div>
 
-  <!-- WAITING -->
+  <!-- ── WAITING ── -->
   <div class="screen" id="s-waiting">
     <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
     <div class="sync-bar"><span class="sync-dot"></span><span id="sync-w">Live</span></div>
@@ -220,10 +378,14 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <div class="card success" style="margin-bottom:18px;">
       <div class="label" style="color:var(--green);margin-bottom:8px;">Your idea is locked in ✓</div>
       <div id="wait-area-tag" style="margin-bottom:10px;"></div>
-      <div class="label" style="margin-bottom:4px;">Problem</div>
-      <div id="wait-problem" style="font-size:14px;color:var(--text);line-height:1.6;margin-bottom:12px;"></div>
-      <div class="label" style="margin-bottom:4px;">Solution</div>
-      <div id="wait-solution" style="font-size:14px;color:var(--text);line-height:1.6;"></div>
+      <div class="idea-field" style="margin-bottom:10px;">
+        <div class="idea-field-label">Problem</div>
+        <div class="idea-field-val" id="wait-problem"></div>
+      </div>
+      <div class="idea-field">
+        <div class="idea-field-label">Solution</div>
+        <div class="idea-field-val" id="wait-solution"></div>
+      </div>
     </div>
     <div class="sub">Waiting for everyone to submit their idea…</div>
     <div class="section-title">Team status</div>
@@ -238,7 +400,7 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <div style="height:24px;"></div>
   </div>
 
-  <!-- VOTE -->
+  <!-- ── VOTE ── -->
   <div class="screen" id="s-vote">
     <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
     <div class="sync-bar"><span class="sync-dot"></span><span id="sync-v">Live</span></div>
@@ -257,9 +419,13 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <div style="height:24px;"></div>
   </div>
 
-  <!-- RESULTS -->
+  <!-- ── RESULTS ── -->
   <div class="screen" id="s-results">
-    <div class="logo"><div class="logo-icon">💡</div><div class="logo-text">Idea Arena</div></div>
+    <div class="logo">
+      <div class="logo-icon">💡</div>
+      <div class="logo-text">Idea Arena</div>
+      <button class="btn-icon btn-ghost logo-right" style="font-family:'DM Sans',sans-serif;font-size:13px;" onclick="openHistory()">📖 History</button>
+    </div>
     <div class="phase-pill pill-green"><span class="dot"></span>Results</div>
     <div class="big-title" style="font-size:28px;margin-bottom:18px;">And the<br><span class="accent">winner</span> is…</div>
     <div id="winner-block"></div>
@@ -275,9 +441,11 @@ textarea{resize:none;height:110px;line-height:1.65;}
     <div style="height:24px;"></div>
   </div>
 
-</div>
+</div><!-- #root -->
+
 <script>
 const GAME_KEY='idea-arena-v4';
+const HISTORY_KEY='idea-arena-history-v1';
 const AREAS=[
   {icon:'💻',name:'Tech'},{icon:'☁️',name:'SaaS'},
   {icon:'🛒',name:'E-commerce'},{icon:'🏥',name:'Health'},
@@ -292,19 +460,81 @@ const AVATARS=[
   {bg:'#FFE4E6',color:'#9F1239'},{bg:'#CFFAFE',color:'#164E63'},
   {bg:'#FEE2E2',color:'#991B1B'},{bg:'#F3F4F6',color:'#1F2937'},
 ];
+
 let myName=null,pollTimer=null,lastPhase=null;
 let draftArea=null,draftProblem=null,draftSolution=null;
 
+// ── Helpers ──
 function initials(n){return n.trim().split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
 function colorFor(n){let h=0;for(let c of n)h=(h*31+c.charCodeAt(0))%AVATARS.length;return AVATARS[h];}
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function nowTime(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});}
-function updateSyncs(){const t='Live · '+nowTime();['sync-s1','sync-s2','sync-s3','sync-w','sync-v'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=t;});}
+function nowDate(){return new Date().toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'});}
+function updateSyncs(){
+  const t='Live · '+nowTime();
+  ['sync-s1','sync-s2','sync-s3','sync-w','sync-v'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=t;});
+}
 
+// ── Storage ──
 function loadState(){try{const v=localStorage.getItem(GAME_KEY);return v?JSON.parse(v):null;}catch{return null;}}
 function saveState(s){try{localStorage.setItem(GAME_KEY,JSON.stringify(s));}catch{}}
 function blankState(){return{phase:'submit',players:{},votes:{},host:null};}
 
+function loadHistory(){try{const v=localStorage.getItem(HISTORY_KEY);return v?JSON.parse(v):[];}catch{return[];}}
+function saveHistory(h){try{localStorage.setItem(HISTORY_KEY,JSON.stringify(h));}catch{}}
+
+function archiveRound(state){
+  const tally={};
+  Object.keys(state.players).forEach(n=>{tally[n]=0;});
+  Object.values(state.votes).forEach(v=>{tally[v]=(tally[v]||0)+1;});
+  const sorted=Object.entries(tally).sort((a,b)=>b[1]-a[1]);
+  const [wName]=sorted[0];
+  const record={
+    date:nowDate(),
+    ts:Date.now(),
+    winner:wName,
+    totalVotes:Object.keys(state.votes).length,
+    ideas:Object.entries(state.players).map(([name,d])=>({
+      name,
+      idea:d.idea||{},
+      votes:tally[name]||0
+    })).sort((a,b)=>b.votes-a.votes)
+  };
+  const hist=loadHistory();
+  hist.unshift(record);
+  if(hist.length>30)hist.splice(30);
+  saveHistory(hist);
+}
+
+// ── Toast ──
+let toastTimer=null;
+function showToast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2000);
+}
+
+// ── Copy button ──
+const COPY_SVG=`<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+const CHECK_SVG=`<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+function makeCopyBtn(id){
+  return `<button class="copy-btn" id="cb-${id}" onclick="doCopy('${id}')" title="Copy to clipboard">${COPY_SVG}</button>`;
+}
+function doCopy(id){
+  const target=document.getElementById('copytext-'+id);
+  if(!target)return;
+  const text=target.textContent||target.innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('cb-'+id);
+    if(btn){btn.classList.add('copied');btn.innerHTML=CHECK_SVG;}
+    showToast('Copied!');
+    setTimeout(()=>{if(btn){btn.classList.remove('copied');btn.innerHTML=COPY_SVG;}},2000);
+  }).catch(()=>showToast('Could not copy'));
+}
+
+// ── Area grid ──
 function buildAreaGrid(){
   document.getElementById('area-grid').innerHTML=AREAS.map(a=>`
     <div class="area-card${draftArea===a.name?' chosen':''}" onclick="selectArea('${a.name}')">
@@ -312,13 +542,13 @@ function buildAreaGrid(){
       <div class="area-name">${a.name}</div>
     </div>`).join('');
 }
-
 function selectArea(name){
   draftArea=name;
   document.querySelectorAll('.area-card').forEach(c=>{c.classList.toggle('chosen',c.querySelector('.area-name').textContent===name);});
   document.getElementById('step1-err').style.display='none';
 }
 
+// ── Join ──
 function joinGame(){
   const name=document.getElementById('join-name').value.trim();
   const err=document.getElementById('join-err');
@@ -341,6 +571,7 @@ function startPoll(){
   pollTimer=setInterval(()=>{const s=loadState();if(s)render(s);updateSyncs();},2200);
 }
 
+// ── Steps ──
 function goStep2(){
   if(!draftArea){document.getElementById('step1-err').style.display='block';return;}
   document.getElementById('step1-err').style.display='none';
@@ -402,6 +633,7 @@ function renderWaitTeam(state){
   document.getElementById('host-submit').style.display=state.host===myName?'block':'none';
 }
 
+// ── Master render ──
 function render(state){
   const phase=state.phase;
   if(phase!==lastPhase){
@@ -418,6 +650,7 @@ function render(state){
   updateSyncs();
 }
 
+// ── Vote ──
 function renderVote(state){
   const players=state.players;
   const myVote=state.votes[myName];
@@ -433,16 +666,22 @@ function renderVote(state){
     return `<div class="card tap${isMine?' selected':''}" onclick="${isOwn?'':'vote(\''+name+'\')'}" style="${isOwn?'opacity:0.45;cursor:default;':''}">
       <div class="player-row" style="margin-bottom:8px;">
         <div class="avatar" style="background:${av.bg};color:${av.color};">${initials(name)}</div>
-        <div style="flex:1;">
-          <div style="font-size:14px;font-weight:500;color:var(--text);">${name}${isOwn?' <span class="badge b-wait" style="font-size:10px;">your idea</span>':''}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:14px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            ${name}${isOwn?' <span class="badge b-wait" style="font-size:10px;">your idea</span>':''}
+          </div>
           <div style="font-size:11px;color:var(--blue);font-weight:500;margin-top:2px;">${a.icon} ${a.name}</div>
         </div>
         ${isMine?'<span class="badge b-done">voted ✓</span>':''}
       </div>
-      <div style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">Problem</div>
-      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:8px;">${idea.problem||''}</div>
-      <div style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">Solution</div>
-      <div style="font-size:14px;color:var(--text);line-height:1.65;">${idea.solution||''}</div>
+      <div class="idea-field" style="margin-bottom:7px;">
+        <div class="idea-field-label">Problem</div>
+        <div class="idea-field-val muted">${idea.problem||''}</div>
+      </div>
+      <div class="idea-field">
+        <div class="idea-field-label">Solution</div>
+        <div class="idea-field-val">${idea.solution||''}</div>
+      </div>
       <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:${pct}%"></div></div>
       <div class="vote-meta"><span>${vc} vote${vc!==1?'s':''}</span><span>${pct}%</span></div>
     </div>`;
@@ -458,6 +697,7 @@ function vote(target){
   renderVote(state);
 }
 
+// ── Results ──
 function renderResults(state){
   const tally={};
   Object.keys(state.players).forEach(n=>{tally[n]=0;});
@@ -468,36 +708,66 @@ function renderResults(state){
   const widea=wd.idea||{};
   const wa=AREAS.find(x=>x.name===widea.area)||{icon:'💡',name:widea.area||''};
   const totalV=Object.keys(state.votes).length;
+
   document.getElementById('winner-block').innerHTML=`
     <div class="winner-banner">
       <div class="winner-crown">🏆</div>
       <div class="winner-name">${wName}</div>
       <span class="winner-area-tag">${wa.icon} ${wa.name}</span>
-      <div class="winner-problem"><strong>Problem:</strong> ${widea.problem||''}</div>
-      <div class="winner-solution">"${widea.solution||''}"</div>
+      <div style="margin-bottom:8px;">
+        <div class="winner-section-label">Problem</div>
+        <div class="copy-row">
+          <div class="copy-text" id="copytext-winner-problem">${widea.problem||''}</div>
+          ${makeCopyBtn('winner-problem')}
+        </div>
+      </div>
+      <div>
+        <div class="winner-section-label">Solution</div>
+        <div class="copy-row">
+          <div class="copy-text" id="copytext-winner-solution">${widea.solution||''}</div>
+          ${makeCopyBtn('winner-solution')}
+        </div>
+      </div>
       <div class="winner-votes">${wVotes} vote${wVotes!==1?'s':''} · ${Math.round(wVotes/totalV*100)}% of team</div>
     </div>`;
+
   document.getElementById('results-list').innerHTML=sorted.map(([name,count],i)=>{
     const d=state.players[name];
     const av=d.color||colorFor(name);
     const idea=d.idea||{};
     const a=AREAS.find(x=>x.name===idea.area)||{icon:'💡',name:idea.area||''};
-    return `<div class="card" style="opacity:${i===0?1:0.6};">
-      <div class="player-row" style="margin-bottom:6px;">
+    const uid=name.replace(/\s+/g,'_').toLowerCase()+'_'+i;
+    return `<div class="card" style="opacity:${i===0?1:0.65};">
+      <div class="player-row" style="margin-bottom:8px;">
         <div class="rank${i===0?' first':''}">${i+1}</div>
         <div class="avatar" style="background:${av.bg};color:${av.color};">${initials(name)}</div>
-        <div style="flex:1;"><div style="font-size:14px;font-weight:500;">${name}</div><div style="font-size:11px;color:var(--blue);font-weight:500;">${a.icon} ${a.name}</div></div>
-        <span style="font-size:13px;color:var(--text3);">${count} vote${count!==1?'s':''}</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:14px;font-weight:500;">${name}</div>
+          <div style="font-size:11px;color:var(--blue);font-weight:500;">${a.icon} ${a.name}</div>
+        </div>
+        <span style="font-size:13px;color:var(--text3);flex-shrink:0;">${count} vote${count!==1?'s':''}</span>
       </div>
-      <div style="padding-left:76px;">
-        <div style="font-size:12px;color:var(--text3);margin-bottom:2px;">Problem: <span style="color:var(--text2);">${idea.problem||''}</span></div>
-        <div style="font-size:13px;color:var(--text);line-height:1.6;font-style:italic;">"${idea.solution||''}"</div>
+      <div class="idea-field" style="margin-bottom:6px;">
+        <div class="idea-field-label">Problem</div>
+        <div class="copy-row">
+          <div class="copy-text idea-field-val muted" id="copytext-${uid}-prob">${idea.problem||''}</div>
+          ${makeCopyBtn(uid+'-prob')}
+        </div>
+      </div>
+      <div class="idea-field">
+        <div class="idea-field-label">Solution</div>
+        <div class="copy-row">
+          <div class="copy-text idea-field-val" id="copytext-${uid}-sol">${idea.solution||''}</div>
+          ${makeCopyBtn(uid+'-sol')}
+        </div>
       </div>
     </div>`;
   }).join('');
+
   document.getElementById('host-results').style.display=state.host===myName?'block':'none';
 }
 
+// ── Host actions ──
 function openVoting(){
   const state=loadState();
   const missing=Object.entries(state.players).filter(([n,d])=>!d.idea);
@@ -511,6 +781,7 @@ function revealResults(){
   const err=document.getElementById('vote-err');
   if(missing.length){err.textContent='Still waiting on: '+missing.join(', ');err.style.display='block';return;}
   err.style.display='none';
+  archiveRound(state);
   state.phase='results';saveState(state);lastPhase=null;
   show('s-results');renderResults(state);launchConfetti();
 }
@@ -538,6 +809,60 @@ function leaveGame(){
   myName=null;lastPhase=null;draftArea=null;show('s-join');
 }
 
+// ── History panel ──
+function openHistory(){
+  renderHistory();
+  document.getElementById('history-panel').classList.add('open');
+}
+function closeHistory(){
+  document.getElementById('history-panel').classList.remove('open');
+}
+function renderHistory(){
+  const hist=loadHistory();
+  const empty=document.getElementById('history-empty');
+  const list=document.getElementById('history-list');
+  if(!hist.length){empty.style.display='block';list.innerHTML='';return;}
+  empty.style.display='none';
+  list.innerHTML=hist.map((round,ri)=>{
+    const ideasHtml=round.ideas.map((item,ii)=>{
+      const a=AREAS.find(x=>x.name===item.idea.area)||{icon:'💡',name:item.idea.area||''};
+      const uid='h'+ri+'i'+ii;
+      const isWinner=item.name===round.winner;
+      return `<div style="padding:12px 0;border-top:1px solid var(--border);${isWinner?'':'opacity:0.65;'}">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+          ${isWinner?'<span style="font-size:13px;">🏆</span>':'<span style="font-size:12px;color:var(--text3);font-weight:600;">#'+(ii+1)+'</span>'}
+          <span style="font-size:13px;font-weight:600;color:var(--text);">${item.name}</span>
+          <span style="font-size:11px;background:var(--blue-light);color:var(--blue);padding:2px 8px;border-radius:999px;">${a.icon} ${a.name}</span>
+          <span style="font-size:11px;color:var(--text3);margin-left:auto;">${item.votes} vote${item.votes!==1?'s':''}</span>
+        </div>
+        <div class="idea-field" style="margin-bottom:5px;">
+          <div class="idea-field-label">Problem</div>
+          <div class="copy-row">
+            <div class="copy-text idea-field-val muted" id="copytext-${uid}-prob">${item.idea.problem||''}</div>
+            ${makeCopyBtn(uid+'-prob')}
+          </div>
+        </div>
+        <div class="idea-field">
+          <div class="idea-field-label">Solution</div>
+          <div class="copy-row">
+            <div class="copy-text idea-field-val" id="copytext-${uid}-sol">${item.idea.solution||''}</div>
+            ${makeCopyBtn(uid+'-sol')}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="card" style="margin-bottom:14px;padding:16px 18px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;flex-wrap:wrap;gap:6px;">
+        <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--orange);">${round.date}</span>
+        <span style="font-size:12px;color:var(--text3);">${round.ideas.length} ideas · ${round.totalVotes} votes</span>
+      </div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:10px;">Winner: <strong style="color:var(--text);">${round.winner}</strong></div>
+      ${ideasHtml}
+    </div>`;
+  }).join('');
+}
+
+// ── Confetti ──
 function launchConfetti(){
   const canvas=document.getElementById('confetti-canvas');
   const ctx=canvas.getContext('2d');
@@ -564,6 +889,7 @@ function launchConfetti(){
   draw();
 }
 
+// ── Init ──
 document.getElementById('join-name').addEventListener('keydown',e=>{if(e.key==='Enter')joinGame();});
 buildAreaGrid();
 </script>
